@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/15 17:52:07 by idias-al         ###   ########.fr       */
+/*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
+/*   Updated: 2023/02/15 18:04:33 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../incs/push_swap.h"
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
-
-# include "../ft_printf/incs/ft_printf.h"
-# include "../ft_printf/incs/get_next_line.h"
-# include "../ft_printf/incs/get_next_line_bonus.h"
-
-typedef struct s_list
+t_list	*ft_createnode(int data)
 {
-	int				data;
-	struct s_list	*next;
-}					t_list;
+	t_list	*node;
 
-#endif
+	node = malloc(sizeof(t_list));
+	if (node)
+	{
+		node->data = data;
+		node->next = NULL;
+	}
+	return (node);
+}
+
+void	ft_swap(t_list *stack, void (*f)(void*))
+{
+	if 
+}
