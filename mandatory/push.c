@@ -1,44 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.c                                             :+:      :+:    :+:   */
+/*   push.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/17 18:34:32 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/20 10:58:26 by idias-al         ###   ########.fr       */
+/*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
+/*   Updated: 2023/02/20 10:54:56 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-t_dlist	*swap(t_dlist *test, int a)
+t_dlist	*push(t_dlist *input, t_dlist *output, int a)
 {
-	t_dlist *lst;
+	t_dlist	*node;
+	t_dlist	*lst;
+	t_dlist	*final;
 	int		temp;
 
-	lst = test;
-	if (test)
+	if (input)
 	{
-		temp = test->data;
-		test->data = test->next->data;
-		test->next->data = temp;
-		lst = test;
+		lst = input;
+		temp = lst->data;
+		node = ft_createnode(temp);
+		input = delete_node(lst);
+		final = insert_node(output, node);
 		if (a == 1)
-			ft_printf("sa\n");
+			ft_printf("pa\n");
 		else
-			ft_printf("sb\n");
+			ft_printf("pb\n");
 	}
-	return (lst);
-}
-
-void	swap_total(t_dlist *stacka, t_dlist *stackb)
-{
-	t_dlist	*testa;
-	t_dlist	*testb;
-
-	testa = stacka;
-	testb = stackb;
-	stacka = swap(testa, 1);
-	stackb = swap(testb, 2);
+	return (final);
 }
