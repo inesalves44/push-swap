@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/21 19:10:36 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/21 19:25:22 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,20 +291,17 @@ t_dlist	*checking_a(t_dlist *lsta)
 		stacka = rotate(stacka, 1);
 		stacka = rotate(stacka, 1);
 	}
-	else if (a == 3 || a == 4)
-	{
-		if (a == 3)
-		{
-			stacka = rotate(stacka, 1);
-			stacka = swap(lsta, 1);
-		}
+	else if (a == 4)
 		stacka = rotate(stacka, 1);
+	else if (a == 3)
+	{
+		stacka = r_rotate(stacka, 1);
+		stacka = r_rotate(stacka, 1);
 	}
 	else if (a == 5)
 	{
-		stacka = rotate(stacka, 1);
-		stacka = rotate(stacka, 1);
-		stacka = rotate(stacka, 1);
+		stacka = r_rotate(stacka, 1);
+		stacka = r_rotate(stacka, 1);
 	}
 	else if (a == 6)
 	{
