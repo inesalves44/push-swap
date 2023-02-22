@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/21 16:48:11 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:14:19 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,5 +102,26 @@ void	free_list(t_dlist **head)
 				break ;
 			}
 		}
+	}
+}
+
+void	reorder_stacks(t_dlist **stacka, t_dlist **stackb)
+{
+	t_dlist	*lsta;
+	t_dlist	*lstb;
+
+	if (stacka)
+	{
+		lsta = *stacka;
+		while (lsta->prev)
+			lsta = lsta->prev;
+		stacka = &lsta;
+	}
+	if (stackb)
+	{
+		lstb = *stackb;
+		while (lsta->prev)
+			lsta = lsta->prev;
+		stackb = &lstb;
 	}
 }

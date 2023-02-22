@@ -6,11 +6,11 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/20 16:29:47 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:02:41 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/push_swap.h"
+#include "../../incs/push_swap.h"
 
 t_dlist	*rotate(t_dlist *head, int a)
 {

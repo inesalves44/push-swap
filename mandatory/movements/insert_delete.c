@@ -6,16 +6,16 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:27:15 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/21 14:09:18 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 15:55:53 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/push_swap.h"
+#include "../../incs/push_swap.h"
 
 t_dlist	*insert_node(t_dlist *head, t_dlist *node)
 {
-	t_dlist *final;
-	t_dlist *temp;
+	t_dlist	*final;
+	t_dlist	*temp;
 
 	final = NULL;
 	if (!head)
@@ -29,8 +29,7 @@ t_dlist	*insert_node(t_dlist *head, t_dlist *node)
 		node->next = temp;
 		temp->prev = node;
 		head = node;
-		final = head;
-		return (final);
+		return (head);
 	}
 	return (final);
 }
@@ -59,7 +58,7 @@ t_dlist	*delete_node(t_dlist *head)
 	return (lst);
 }
 
-t_dlist *stack_creation(char *args, t_dlist *head)
+t_dlist	*stack_creation(char *args, t_dlist *head)
 {
 	t_dlist	*lst_temp;
 	int		number;

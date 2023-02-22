@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/21 14:09:43 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 16:12:04 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ t_dlist	*ft_createnode(int data);
 int		ft_tdsize(t_dlist *head);
 void	print_dblist(t_dlist *lst);
 void	free_list(t_dlist **head);
+void	reorder_stacks(t_dlist **stacka, t_dlist **stackb);
 
 /*swap*/
 t_dlist	*swap(t_dlist *test, int a);
@@ -47,12 +48,21 @@ t_dlist	*create_stack(t_dlist *lst);
 t_dlist *stack_creation_ind(t_dlist *head);
 
 /*push*/
-t_dlist	*push(t_dlist *input, t_dlist *output, int a);
+t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb);
+t_dlist	*deletefroma(t_dlist *lsta, int size);
+t_dlist	*deletefromb(t_dlist *lstb);
+t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size);
 
 /*rotate*/
 t_dlist	*rotate(t_dlist *head, int a);
 void	rotate_total(t_dlist *stack_a, t_dlist *stack_b);
 t_dlist	*r_rotate(t_dlist *lst, int a);
 void	r_rotate_total(t_dlist *stack_a, t_dlist *stack_b);
+
+/*sort 3 numbers*/
+t_dlist	*checking_lastcase(t_dlist *stacka, t_dlist **lstb, int aux);
+t_dlist	*sort3numbers(t_dlist *stacka, t_dlist **stackb);
+void	checking_lastcase_rev(t_dlist *stacka, t_dlist *stackb);
+t_dlist	*sort3numbers_rev(t_dlist *stackb, t_dlist *stacka);
 
 #endif

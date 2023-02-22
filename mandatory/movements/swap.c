@@ -6,11 +6,11 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:34:32 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/20 10:58:26 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 11:38:20 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../incs/push_swap.h"
+#include "../../incs/push_swap.h"
 
 t_dlist	*swap(t_dlist *test, int a)
 {
@@ -29,6 +29,8 @@ t_dlist	*swap(t_dlist *test, int a)
 		else
 			ft_printf("sb\n");
 	}
+	while (lst->prev)
+		lst = lst->prev;
 	return (lst);
 }
 
