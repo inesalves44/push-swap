@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 16:47:53 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/22 18:11:31 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	checking_ifordered(t_dlist *stacka)
 	a = 0;
 	while (lst->next)
 	{
-		if (lst->data < lst->next->data)
+		if (lst->data > lst->next->data)
 			a++;
 		lst = lst->next;
 	}
@@ -49,7 +49,7 @@ int	checking_ifordered_b(t_dlist *stackb)
 	return (a);
 }
 
-int	check_max(t_dlist *lsta)
+int	check_max5(t_dlist *lsta)
 {
 	t_dlist	*stacka;
 	int		temp;
@@ -81,14 +81,49 @@ int	check_max(t_dlist *lsta)
 	return (7);
 }
 
+int	check_max4(t_dlist *lsta)
+{
+	t_dlist	*stacka;
+	int		temp;
+	int		a;
+	int		b;
+
+	stacka = lsta;
+	temp = 1;
+	while (lsta)
+	{
+		if (lsta->data == 3)
+			a = temp;
+		if (lsta->data == 4)
+			b = temp;
+		lsta = lsta->next;
+		temp++;
+	}
+	lsta = stacka;
+	if (a == 2 && b == 1)
+		return (1);
+	else if (a == 1 && b == 2)
+		return (2);
+	else if ((a == 1 && b == 3) || (a == 3 && b == 1) || (a == 2 && b == 3) || (a == 3 && b == 2))
+		return (3);
+	else if ((a == 1 && b > 3) || (a > 3 && b == 1))
+		return (4);
+	else if (a == 2 || b == 2)
+		return (6);
+	return (7);
+}
+
 t_dlist	*checking_a(t_dlist *lsta)
 {
 	t_dlist	*stacka;
 	int		a;
 
 	stacka = lsta;
-	a = check_max(lsta);
-	if (a != 3)
+	if (ft_tdsize(lsta) == 5)
+		a = check_max5(lsta);
+	else
+		a = check_max4(lsta);
+	if (a != 3 && a != 7)
 	{
 		if (a == 2 || a == 6)
 			stacka = swap(lsta, 1);
@@ -105,23 +140,61 @@ t_dlist	*checking_a(t_dlist *lsta)
 	return(stacka);
 }
 
+int	min_values(t_dlist **stackb)
+{
+	t_dlist	*lstb;
+	int		min;
+
+	lstb = *stackb;
+	min = lstb->data;
+	while (lstb->next)
+	{
+		if (min > lstb->next->data)
+			min = lstb->next->data;
+		lstb = lstb->next;
+	}
+	reorder_stacks(stackb, NULL);
+	return (min);
+}
+
+/*int	max_values(t_dlist **stackb)
+{
+	t_dlist	*lstb;
+	int		max;
+
+	lstb = *stackb;
+	max = lstb->data;
+	while (lstb->next)
+	{
+		if (max < lstb->next->data)
+			max = lstb->next->data;
+		lstb = lstb->next;
+	}
+	reorder_stacks(stackb, NULL);
+	return (max);
+}*/
+
 void	sort5numbers(t_dlist *stacka, t_dlist *stackb)
 {
 	stackb = NULL;
-	stacka = checking_a(stacka);
+	if (ft_tdsize(stacka) == 5)
+		stacka = checking_a(stacka);
 	if (!checking_ifordered(stacka))
 		exit(EXIT_SUCCESS);
 	stackb = pushing_tob(stacka, stackb, ft_tdsize(stacka));
 	stacka = deletefroma(stacka, ft_tdsize(stacka));
-	if (checking_ifordered(stacka) != 0)
+	checking_ifordered(stacka);
+	if (checking_ifordered(stacka) != 0 && ft_tdsize(stacka) > 2)
 		stacka = sort3numbers(stacka, &stackb);
+	else if (checking_ifordered(stacka) != 0 && ft_tdsize(stacka) == 2)
+		stacka = swap(stacka, 1);
 	reorder_stacks(&stacka, &stackb);
 	if (checking_ifordered_b(stackb) != 0 && ft_tdsize(stackb) <= 2)
 		stackb = swap(stackb, 2);
 	else if (checking_ifordered_b(stackb) != 0 && ft_tdsize(stackb) > 2)
 		stackb = sort3numbers_rev(stackb, stacka);
 	reorder_stacks(&stacka, &stackb);
-	if (stackb->data > stacka->data)
+	if (min_values(&stackb) < stacka->data)
 	{
 		stackb = pushing_tob(stacka, stackb, ft_tdsize(stacka));
 		stacka = deletefroma(stacka, ft_tdsize(stacka));
@@ -140,7 +213,7 @@ void	annalysing_stack(t_dlist *stacka)
 
 	stackb = NULL;
 	lst = stacka;
-	if (!checking_ifordered(stacka))
+	if (checking_ifordered(stacka) == 0)
 	{
 		free_list(&stacka);
 		exit(EXIT_SUCCESS);
