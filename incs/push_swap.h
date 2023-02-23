@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 16:12:04 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 15:20:36 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,10 @@ t_dlist	*r_rotate(t_dlist *lst, int a);
 void	r_rotate_total(t_dlist *stack_a, t_dlist *stack_b);
 
 /*sort 3 numbers*/
-t_dlist	*checking_lastcase(t_dlist *stacka, t_dlist **lstb, int aux);
 t_dlist	*sort3numbers(t_dlist *stacka, t_dlist **stackb);
-void	checking_lastcase_rev(t_dlist *stacka, t_dlist *stackb);
 t_dlist	*sort3numbers_rev(t_dlist *stackb, t_dlist *stacka);
 
+/*max*/
+int	get_max(t_dlist *lst);
+int	get_min(t_dlist *lst);
 #endif
