@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/23 15:48:25 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:09:24 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,101 +25,59 @@ int	checking_ifordered(t_dlist *stacka)
 			a++;
 		lst = lst->next;
 	}
-	while (lst->prev)
-		lst = lst->prev;
+	stacka = reorder_stacks(stacka);
 	return (a);
 }
 
 
 int	checking_ifordered_b(t_dlist *stackb)
 {
-	t_dlist	*lst;
 	int		a;
 
-	lst = stackb;
 	a = 0;
-	while (lst->next)
-		lst = lst->next;
-	while (lst->prev)
+	while (stackb->next)
+		stackb = stackb->next;
+	while (stackb->prev)
 	{
-		if (lst->data > lst->prev->data)
+		if (stackb->data > stackb->prev->data)
 			a++;
-		lst = lst->prev;
+		stackb = stackb->prev;
 	}
+	stackb = reorder_stacks(stackb);
 	return (a);
 }
 
-t_dlist	*check_test(t_dlist *lsta, int size)
+t_dlist	*check_test(t_dlist *lsta, t_dlist **stackb)
 {
-	int	temp;
-
-	temp = 1;
-	while (lsta->prev)
-		lsta = lsta->prev;
-	while (lsta)
+	if (lsta->data == 1 || lsta->data == 2)
 	{
-		if ((lsta->data == size || lsta->data ==  (size - 1)))
-		{
-			if (temp == 1)
-			{
-				lsta = rotate(lsta, 1);
-				lsta = check_test(lsta, size);
-			}
-			else if (temp == 2)
-			{
-				while (lsta->prev)
-					lsta = lsta->prev;
-				lsta = swap(lsta, 1);
-				lsta = rotate(lsta, 1);
-				lsta = check_test(lsta, size);
-			}
-		}
-		if (!lsta->next)
-			break ;
-		lsta = lsta->next;
-		temp++;
+		*stackb = pushing_tob(lsta, *stackb, 2);
+		lsta = deletefroma(lsta, 2);
+		lsta = check_test(lsta, stackb);
 	}
-	while (lsta->prev)
-		lsta = lsta->prev;
+	else if (ft_tdsize(*stackb) < 2)
+	{
+		rotate(lsta, 1);
+		lsta = check_test(lsta, stackb);
+	}
 	return (lsta);
 }
 
 
 void	sort5numbers(t_dlist *stacka, t_dlist *stackb)
 {
-	int	size;
-
 	stackb = NULL;
-	size = ft_tdsize(stacka);
-	stacka = check_test(stacka, size);
-	print_dblist(stacka);
-	/*if (ft_tdsize(stacka) == 5)
-		stacka = checking_a(stacka);
-	if (!checking_ifordered(stacka))
-		exit(EXIT_SUCCESS);
-	stackb = pushing_tob(stacka, stackb, ft_tdsize(stacka));
-	stacka = deletefroma(stacka, ft_tdsize(stacka));
-	checking_ifordered(stacka);
-	if (checking_ifordered(stacka) != 0 && ft_tdsize(stacka) > 2)
+	stacka = check_test(stacka, &stackb);
+	stacka = reorder_stacks(stacka);
+	if (checking_ifordered(stacka) != 0 &&  ft_tdsize(stacka) >= 3)
 		stacka = sort3numbers(stacka, &stackb);
-	else if (checking_ifordered(stacka) != 0 && ft_tdsize(stacka) == 2)
+	else if (checking_ifordered(stacka) != 0 &&  ft_tdsize(stacka) < 3)
 		stacka = swap(stacka, 1);
-	reorder_stacks(&stacka, &stackb);
-	if (checking_ifordered_b(stackb) != 0 && ft_tdsize(stackb) <= 2)
+	if (checking_ifordered_b(stackb) != 0)
 		stackb = swap(stackb, 2);
-	else if (checking_ifordered_b(stackb) != 0 && ft_tdsize(stackb) > 2)
-		stackb = sort3numbers_rev(stackb, stacka);
-	reorder_stacks(&stacka, &stackb);
-	if (min_values(&stackb) < stacka->data)
-	{
-		stackb = pushing_tob(stacka, stackb, ft_tdsize(stacka));
-		stacka = deletefroma(stacka, ft_tdsize(stacka));
-		if (checking_ifordered_b(stackb) != 0)
-			stackb = sort3numbers_rev(stackb, stacka);
-		reorder_stacks(&stacka, &stackb);
-	}
 	stacka = pushing_toa(stacka, stackb);
-	stackb = deletefromb(stackb);*/
+	deletefromb(stackb);
+	free_list(&stacka);
 }
 
 void	annalysing_stack(t_dlist *stacka)
@@ -152,17 +110,16 @@ int	main(int argc, char *argv[])
 		ft_printf("Error\n");
 		return (1);
 	}
-	lst = firt_list(argv, argc);
+	lst = first_list(argv, argc);
 	while (lst->prev)
 		lst = lst->prev;
 	stacka = create_stack(lst);
+	free_list(&lst);
 	if (!stacka)
 	{
-		ft_printf("Error\n");
-		free_list(&lst);
+		write(2, "Error\n", 6);
 		exit(EXIT_FAILURE);
 	}
 	annalysing_stack(stacka);
-	free_list(&stacka);
 	return (0);
 }

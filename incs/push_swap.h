@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/23 15:20:36 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:38:07 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_dlist	*ft_createnode(int data);
 int		ft_tdsize(t_dlist *head);
 void	print_dblist(t_dlist *lst);
 void	free_list(t_dlist **head);
-void	reorder_stacks(t_dlist **stacka, t_dlist **stackb);
+t_dlist	*reorder_stacks(t_dlist *stacka);
 
 /*swap*/
 t_dlist	*swap(t_dlist *test, int a);
@@ -40,8 +40,8 @@ void	swap_total(t_dlist *stacka, t_dlist *stackb);
 t_dlist	*insert_node(t_dlist *head, t_dlist *node);
 t_dlist	*delete_node(t_dlist *head);
 t_dlist *stack_creation(char *args, t_dlist *head);
-t_dlist	*firt_list(char **argv, int argc);
-int		checking_list(t_dlist *lst);
+t_dlist	*first_list(char **argv, int argc);
+int	checking_list(t_dlist *lst);
 
 /*create stack a*/
 t_dlist	*create_stack(t_dlist *lst);

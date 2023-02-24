@@ -6,18 +6,17 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 16:02:41 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:12:31 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/push_swap.h"
 
-t_dlist	*rotate(t_dlist *head, int a)
+t_dlist	*rotate(t_dlist *lst, int a)
 {
-	t_dlist	*lst;
 	int		temp;
 
-	lst = head;
+	lst = reorder_stacks(lst);
 	temp = lst->data;
 	while (lst)
 	{
@@ -30,12 +29,12 @@ t_dlist	*rotate(t_dlist *head, int a)
 		}
 		lst = lst->next;
 	}
-	while (lst->prev)
-		lst = lst->prev;
 	if (a == 1)
 		ft_printf("ra\n");
 	else
 		ft_printf("rb\n");
+	while (lst->prev)
+		lst = lst->prev;
 	return (lst);
 }
 
@@ -48,8 +47,8 @@ void	rotate_total(t_dlist *stack_a, t_dlist *stack_b)
 t_dlist	*r_rotate(t_dlist *lst, int a)
 {
 	int		temp;
-	t_dlist	*stacka;
 
+	lst = reorder_stacks(lst);
 	while (lst->next)
 		lst = lst->next;
 	temp = lst->data;
@@ -68,8 +67,9 @@ t_dlist	*r_rotate(t_dlist *lst, int a)
 		ft_printf("rra\n");
 	else
 		ft_printf("rrb\n");
-	stacka = lst;
-	return (stacka);
+	while (lst->prev)
+		lst = lst->prev;
+	return (lst);
 }
 
 void	r_rotate_total(t_dlist *stack_a, t_dlist *stack_b)

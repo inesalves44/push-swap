@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:05:34 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/23 14:48:38 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:21:41 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ t_dlist	*create_stack(t_dlist *lst)
 	
 	stacka =  NULL;
 	e = checking_list(lst);
-	if (e == 8000)
+	if (e == 1)
 		return (NULL);
 	i = 1;
 	stacka = ft_createnode(1);

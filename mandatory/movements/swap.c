@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 18:34:32 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 11:38:20 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 21:25:35 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 t_dlist	*swap(t_dlist *test, int a)
 {
-	t_dlist *lst;
 	int		temp;
 
-	lst = test;
+	test = reorder_stacks(test);
 	if (test)
 	{
 		temp = test->data;
 		test->data = test->next->data;
 		test->next->data = temp;
-		lst = test;
 		if (a == 1)
 			ft_printf("sa\n");
 		else
 			ft_printf("sb\n");
 	}
-	while (lst->prev)
-		lst = lst->prev;
-	return (lst);
+	while (test->prev)
+		test = test->prev;
+	return (test);
 }
 
 void	swap_total(t_dlist *stacka, t_dlist *stackb)

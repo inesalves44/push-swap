@@ -6,57 +6,11 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:27:15 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 15:55:53 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 20:24:54 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/push_swap.h"
-
-t_dlist	*insert_node(t_dlist *head, t_dlist *node)
-{
-	t_dlist	*final;
-	t_dlist	*temp;
-
-	final = NULL;
-	if (!head)
-	{
-		final = node;
-		return (final);
-	}
-	else if (node && head)
-	{
-		temp = head;
-		node->next = temp;
-		temp->prev = node;
-		head = node;
-		return (head);
-	}
-	return (final);
-}
-
-t_dlist	*delete_node(t_dlist *head)
-{
-	t_dlist	*lst;
-	t_dlist	*test;
-
-	test = head;
-	lst = NULL;
-	if (ft_tdsize(head) > 1)
-	{
-		head = test->next;
-		head->prev = NULL;
-		test->next = NULL;
-		lst = head;
-		free(test);
-	}
-	else if (ft_tdsize(head) > 0)
-	{
-		head = NULL;
-		lst = NULL;
-		free(test);
-	}
-	return (lst);
-}
 
 t_dlist	*stack_creation(char *args, t_dlist *head)
 {
@@ -82,7 +36,7 @@ t_dlist	*stack_creation(char *args, t_dlist *head)
 	return (lst_temp);
 }
 
-t_dlist	*firt_list(char **argv, int argc)
+t_dlist	*first_list(char **argv, int argc)
 {
 	t_dlist	*lst;
 	int		number;
@@ -114,27 +68,22 @@ t_dlist	*firt_list(char **argv, int argc)
 int	checking_list(t_dlist *lst)
 {
 	t_dlist	*new;
-	int		a;
-	int		number;
 
-	a = 0;
 	new = lst;
-	while (a < ft_tdsize(lst))
+	while (lst)
 	{
-		number = lst->data;
-		lst = lst->next;
-		while (lst)
+		new = lst->next;
+		while (new)
 		{
-			if (lst->data == number)
-			{
-				a = 80000;
-				return (a);
-			}
-			lst = lst->next;
+			if (new->data == lst->data)
+				return (1);
+			new = new->next;
 		}
-		lst = new;
+		if (!lst->next)
+			break ;
 		lst = lst->next;
-		a++;
 	}
-	return (a);
+	while (lst->prev)
+		lst = lst->prev;
+	return (0);
 }

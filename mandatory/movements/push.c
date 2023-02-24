@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/22 16:11:46 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 00:04:37 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,10 @@ t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size)
 		lsta = lsta->next;
 		i++;
 	}
-	reorder_stacks(&lsta, &lstb);
+	while (lsta->prev)
+		lsta = lsta->prev;
+	while (lstb->prev)
+		lstb = lstb->prev;
 	return (lstb);
 }
 
@@ -77,7 +80,7 @@ t_dlist	*deletefroma(t_dlist *lsta, int size)
 		ft_printf("pb\n");
 		i++;
 	}
-	reorder_stacks(&lsta, NULL);
+	lsta = reorder_stacks(lsta);
 	return (lsta);
 }
 
@@ -85,14 +88,21 @@ t_dlist	*deletefromb(t_dlist *lstb)
 {
 	t_dlist	*temp;
 
-	temp = NULL;
-	while (lstb->next)
+	while (lstb)
 	{
-		temp = lstb;
-		lstb = lstb->next;
-		temp->next = NULL;
-		lstb->prev = NULL;
-		free(temp);
+		if (lstb->next)
+		{
+			temp = lstb;
+			lstb = lstb->next;
+			temp->next = NULL;
+			lstb->prev = NULL;
+			free(temp);	
+		}
+		else
+		{
+			free(lstb);
+			break ;
+		}
 		ft_printf("pa\n");
 	}
 	ft_printf("pa\n");

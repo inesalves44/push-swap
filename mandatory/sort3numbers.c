@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:12:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/23 15:20:18 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/23 19:28:37 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,6 @@ t_dlist	*sort3numbers(t_dlist *stacka, t_dlist **stackb)
 	if (stacka->data > stacka->next->data)
 		stacka = swap(stacka, 1);
 	return (stacka);
-}
-
-void	checking_lastcase_rev(t_dlist *stacka, t_dlist *stackb)
-{
-	t_dlist	*lsta;
-	t_dlist	*lstb;
-	t_dlist	*node;
-	int		temp;
-
-	lsta = stacka;
-	lstb = stackb;
-	temp = lstb->data;
-	node = ft_createnode(temp);
-	stacka = insert_node(lsta, node);
-	lsta = stacka;
-	ft_printf("pa\n");
-	stackb = delete_node(lstb);
-	lstb = stackb;
-	stackb = swap(lstb, 0);
 }
 
 t_dlist	*sort3numbers_rev(t_dlist *stackb, t_dlist *stacka)
