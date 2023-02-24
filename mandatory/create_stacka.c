@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:05:34 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/23 19:21:41 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:27:39 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,16 +79,14 @@ int	get_max2(t_dlist *lst, int max)
 	return (max2);
 }
 
-t_dlist	*finish_stack(t_dlist *lst, t_dlist *stacka)
+t_dlist	*finish_stack(t_dlist *lst, t_dlist *stacka, int min)
 {
 	int	max;
-	int	min;
 	int	i;
 	int	number;
 	int	j;
 
 	max = get_max(lst);
-	min = get_min(lst);
 	i = 0;
 	number = 0;
 	j = 0;
@@ -100,12 +98,11 @@ t_dlist	*finish_stack(t_dlist *lst, t_dlist *stacka)
 			max = get_max2(lst, max);
 			while (number++ < i)
 				stacka = stacka->next;
-			stacka->data = ft_tdsize(stacka) - j;
+			stacka->data = ft_tdsize(stacka) - j++;
 			while (lst->prev)
 				lst = lst->prev;
 			while (stacka->prev)
 				stacka = stacka->prev;
-			j++;
 			i = 0;
 		}
 		else if (!lst->next)
@@ -122,13 +119,14 @@ t_dlist	*finish_stack(t_dlist *lst, t_dlist *stacka)
 t_dlist	*create_stack(t_dlist *lst)
 {
 	t_dlist	*stacka;
-	int		e;
+	int		min;
 	int		i;
 	
 	stacka =  NULL;
-	e = checking_list(lst);
-	if (e == 1)
+	i = checking_list(lst);
+	if (i == 1)
 		return (NULL);
+	min = get_min(lst);
 	i = 1;
 	stacka = ft_createnode(1);
 	while (i < ft_tdsize(lst))
@@ -139,6 +137,6 @@ t_dlist	*create_stack(t_dlist *lst)
 	}
 	while (stacka->prev)
 		stacka = stacka->prev;
-	stacka = finish_stack(lst, stacka);
+	stacka = finish_stack(lst, stacka, min);
 	return (stacka);
 }

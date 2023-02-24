@@ -1,11 +1,39 @@
 // C program for merge sort on doubly linked list
 #include<stdio.h>
 #include<stdlib.h>
+#include "../incs/push_swap.h"
+
 struct Node
 {
 	int data;
 	struct Node *next, *prev;
 };
+
+int	ft_2size(struct Node *head)
+{
+	int		i;
+	struct Node *lst;
+
+	i = 0;
+	if (!head)
+		return (0);
+	lst = head;
+	if (lst->prev)
+		while (lst->prev)
+			lst = lst->prev;
+	if (!lst->next)
+		return (1);
+	while (lst)
+	{
+		i++;
+		if (!lst->next)
+			break ;
+		lst = lst->next;
+	}
+	while (lst->prev)
+		lst = lst->prev;
+	return (i);
+}
 
 struct Node *split(struct Node *head);
 
@@ -47,7 +75,6 @@ struct Node *mergeSort(struct Node *head)
 	// Recur for left and right halves
 	head = mergeSort(head);
 	second = mergeSort(second);
-
 	// Merge the two sorted halves
 	return merge(head,second);
 }
@@ -91,7 +118,7 @@ void print(struct Node *head)
 }
 
 // Utility function to swap two integers
-void swap(int *A, int *B)
+void tswap(int *A, int *B)
 {
 	int temp = *A;
 	*A = *B;
@@ -114,15 +141,23 @@ struct Node *split(struct Node *head)
 }
 
 // Driver program
-int main(void)
+int main(int argc, char *argv[])
 {
+	int i;
+
+	i = 1;
 	struct Node *head = NULL;
-	insert(&head,5);
+	while (i < argc)
+	{
+		insert(&head, ft_atoi(argv[i]));
+		i++;
+	}
+	/*insert(&head,5);
 	insert(&head,20);
 	insert(&head,4);
 	insert(&head,3);
 	insert(&head,30);
-	insert(&head,10);
+	insert(&head,10);*/
 	head = mergeSort(head);
 	printf("\n\nLinked List after sorting\n");
 	print(head);

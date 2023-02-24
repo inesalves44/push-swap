@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 00:13:27 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:36:26 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,21 +29,15 @@ t_dlist	*ft_createnode(int data)
 int	ft_tdsize(t_dlist *head)
 {
 	int		i;
-	t_dlist *lst;
+	t_dlist	*lst;
 
 	i = 0;
 	if (!head)
 		return (0);
 	lst = head;
 	if (lst->prev)
-	{
-		while (lst)
-		{
-			if (!lst->prev)
-				break ;
+		while (lst->prev)
 			lst = lst->prev;
-		}
-	}
 	if (!lst->next)
 		return (1);
 	while (lst)
@@ -67,7 +61,7 @@ void	print_dblist(t_dlist *lst)
 		{
 			ft_printf("%d\n", lst->data);
 			if (lst->next == NULL)
-				break;		
+				break ;
 			lst = lst->next;
 		}
 		ft_printf("------- back list-------\n");
@@ -88,7 +82,7 @@ void	free_list(t_dlist **head)
 	lst = *head;
 	if (head)
 	{
-		while(lst)
+		while (lst)
 		{
 			lst->data = 0;
 			if (lst->next)
@@ -109,5 +103,5 @@ t_dlist	*reorder_stacks(t_dlist *stacka)
 {
 	while (stacka->prev)
 			stacka = stacka->prev;
-	return(stacka);
+	return (stacka);
 }

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 00:04:37 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:11:07 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb)
 
 	i = 0;
 	if (!lstb)
-		return(lsta);
+		return (lsta);
 	stackb = lstb;
 	temp = NULL;
 	while (i < ft_tdsize(stackb))
@@ -65,7 +65,7 @@ t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size)
 
 t_dlist	*deletefroma(t_dlist *lsta, int size)
 {
-	int	i;
+	int		i;
 	t_dlist	*temp;
 
 	i = 0;
@@ -76,7 +76,7 @@ t_dlist	*deletefroma(t_dlist *lsta, int size)
 		lsta = lsta->next;
 		temp->next = NULL;
 		lsta->prev = NULL;
-		free (temp);
+		free(temp);
 		ft_printf("pb\n");
 		i++;
 	}
@@ -96,7 +96,7 @@ t_dlist	*deletefromb(t_dlist *lstb)
 			lstb = lstb->next;
 			temp->next = NULL;
 			lstb->prev = NULL;
-			free(temp);	
+			free(temp);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 00:09:24 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/24 13:27:12 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,39 +45,6 @@ int	checking_ifordered_b(t_dlist *stackb)
 	}
 	stackb = reorder_stacks(stackb);
 	return (a);
-}
-
-t_dlist	*check_test(t_dlist *lsta, t_dlist **stackb)
-{
-	if (lsta->data == 1 || lsta->data == 2)
-	{
-		*stackb = pushing_tob(lsta, *stackb, 2);
-		lsta = deletefroma(lsta, 2);
-		lsta = check_test(lsta, stackb);
-	}
-	else if (ft_tdsize(*stackb) < 2)
-	{
-		rotate(lsta, 1);
-		lsta = check_test(lsta, stackb);
-	}
-	return (lsta);
-}
-
-
-void	sort5numbers(t_dlist *stacka, t_dlist *stackb)
-{
-	stackb = NULL;
-	stacka = check_test(stacka, &stackb);
-	stacka = reorder_stacks(stacka);
-	if (checking_ifordered(stacka) != 0 &&  ft_tdsize(stacka) >= 3)
-		stacka = sort3numbers(stacka, &stackb);
-	else if (checking_ifordered(stacka) != 0 &&  ft_tdsize(stacka) < 3)
-		stacka = swap(stacka, 1);
-	if (checking_ifordered_b(stackb) != 0)
-		stackb = swap(stackb, 2);
-	stacka = pushing_toa(stacka, stackb);
-	deletefromb(stackb);
-	free_list(&stacka);
 }
 
 void	annalysing_stack(t_dlist *stacka)
