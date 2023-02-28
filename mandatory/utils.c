@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 13:36:26 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:26:55 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,10 @@ void	free_list(t_dlist **head)
 
 t_dlist	*reorder_stacks(t_dlist *stacka)
 {
-	while (stacka->prev)
+	if (stacka)
+	{
+		while (stacka->prev)
 			stacka = stacka->prev;
+	}
 	return (stacka);
 }

@@ -36,10 +36,19 @@ int	ft_2size(struct Node *head)
 }
 
 struct Node *split(struct Node *head);
+void print(struct Node *head);
 
 // Function to merge two linked lists
 struct Node *merge(struct Node *first, struct Node *second)
 {
+	static int a;
+	if (a == 0)
+		a = 1;
+	else 
+		a++;
+		//printf("%d\n", a);
+	//print(first);
+	//print(second);
 	// If first linked list is empty
 	if (!first)
 		return second;
@@ -73,6 +82,10 @@ struct Node *mergeSort(struct Node *head)
 	struct Node *second = split(head);
 
 	// Recur for left and right halves
+	printf("\nHEAD\n");
+	print(head);
+	printf("\nSecond\n");
+	print(second);
 	head = mergeSort(head);
 	second = mergeSort(second);
 	// Merge the two sorted halves
@@ -102,19 +115,19 @@ void insert(struct Node **head, int data)
 void print(struct Node *head)
 {
 	struct Node *temp = head;
-	printf("Forward Traversal using next pointer\n");
+	//printf("Forward Traversal using next pointer\n");
 	while (head)
 	{
 		printf("%d ",head->data);
 		temp = head;
 		head = head->next;
 	}
-	printf("\nBackward Traversal using prev pointer\n");
+	/*printf("\nBackward Traversal using prev pointer\n");
 	while (temp)
 	{
 		printf("%d ", temp->data);
 		temp = temp->prev;
-	}
+	}*/
 }
 
 // Utility function to swap two integers

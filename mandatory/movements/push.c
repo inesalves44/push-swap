@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 13:11:07 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/27 15:06:44 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb)
 	free_list(&temp);
 }
 
-t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size)
+t_dlist	*pushing_to_stack(t_dlist *lsta, t_dlist *lstb, int size)
 {
 	int	i;
 
@@ -53,6 +53,8 @@ t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size)
 			lstb->prev->next = lstb;
 			lstb = lstb->prev;
 		}
+		if (!lsta->next)
+			break ;
 		lsta = lsta->next;
 		i++;
 	}
@@ -63,7 +65,7 @@ t_dlist	*pushing_tob(t_dlist *lsta, t_dlist *lstb, int size)
 	return (lstb);
 }
 
-t_dlist	*deletefroma(t_dlist *lsta, int size)
+t_dlist	*deletefromstack(t_dlist *lsta, int size, int a)
 {
 	int		i;
 	t_dlist	*temp;
@@ -74,13 +76,19 @@ t_dlist	*deletefroma(t_dlist *lsta, int size)
 	{
 		temp = lsta;
 		lsta = lsta->next;
+		if (!lsta->next)
+			break ;
 		temp->next = NULL;
 		lsta->prev = NULL;
 		free(temp);
-		ft_printf("pb\n");
+		if (a == 1)
+			ft_printf("pa\n");
+		else
+			ft_printf("pb\n");
 		i++;
 	}
-	lsta = reorder_stacks(lsta);
+	while (lsta->prev)
+		lsta = lsta->prev;
 	return (lsta);
 }
 

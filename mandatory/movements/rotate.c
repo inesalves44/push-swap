@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/24 13:08:52 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/02/27 11:38:23 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,25 @@ t_dlist	*rotate(t_dlist *lst, int a)
 	}
 	if (a == 1)
 		ft_printf("ra\n");
-	else
+	else if (a == 2)
 		ft_printf("rb\n");
 	while (lst->prev)
 		lst = lst->prev;
 	return (lst);
 }
 
-void	rotate_total(t_dlist *stack_a, t_dlist *stack_b)
+void	rotate_total(t_dlist **stack_a, t_dlist **stack_b)
 {
-	rotate(stack_a, 1);
-	rotate(stack_b, 0);
+	t_dlist	*lsta;
+	t_dlist	*lstb;
+
+	lsta = *stack_a;
+	lstb = *stack_b;
+	lsta = rotate(lsta, 0);
+	lstb = rotate(lstb, 0);
+	stack_a = &lsta;
+	stack_b = &lstb;
+	ft_printf("rr\n");
 }
 
 t_dlist	*r_rotate(t_dlist *lst, int a)
@@ -65,15 +73,23 @@ t_dlist	*r_rotate(t_dlist *lst, int a)
 	}
 	if (a == 1)
 		ft_printf("rra\n");
-	else
+	else if (a == 2)
 		ft_printf("rrb\n");
 	while (lst->prev)
 		lst = lst->prev;
 	return (lst);
 }
 
-void	r_rotate_total(t_dlist *stack_a, t_dlist *stack_b)
+void	r_rotate_total(t_dlist **stack_a, t_dlist **stack_b)
 {
-	r_rotate(stack_a, 1);
-	r_rotate(stack_b, 0);
+	t_dlist	*lsta;
+	t_dlist	*lstb;
+
+	lsta = *stack_a;
+	lsta = *stack_b;
+	lsta = r_rotate(lsta, 0);
+	lsta = r_rotate(lstb, 0);
+	stack_a = &lsta;
+	stack_b = &lstb;
+	ft_printf("rrr\n");
 }
