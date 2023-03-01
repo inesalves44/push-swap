@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/27 11:38:23 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:23:13 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,9 @@ void	r_rotate_total(t_dlist **stack_a, t_dlist **stack_b)
 	t_dlist	*lstb;
 
 	lsta = *stack_a;
-	lsta = *stack_b;
+	lstb = *stack_b;
 	lsta = r_rotate(lsta, 0);
-	lsta = r_rotate(lstb, 0);
+	lstb = r_rotate(lstb, 0);
 	stack_a = &lsta;
 	stack_b = &lstb;
 	ft_printf("rrr\n");

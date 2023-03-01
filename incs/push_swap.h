@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/28 18:01:49 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:53:15 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_dlist
 
 t_dlist *annalysing_stack(t_dlist *stacka, t_dlist **stackb);
 t_dlist	*sort100numbers(t_dlist *stacka, t_dlist **stackb);
+int	find_maxnumberi(t_dlist *stackb);
 
 /*Utils*/
 t_dlist	*ft_createnode(int data);
