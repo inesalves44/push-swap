@@ -1,4 +1,70 @@
 
+
+t_dlist	*pass_to_a(t_dlist *stackb, t_dlist **stacka, int size)
+{
+	int		i;
+	int		j;
+	t_dlist	*lsta;
+
+	lsta = *stacka;
+	i = 0;
+	j = find_maxnumberi(stackb);
+	if (j > (ft_tdsize(stackb) / 2))
+	{
+		while (i < size)
+		{
+			stackb = r_rotate(stackb, 2);
+			if (find_maxnumberi(stackb) == 1)
+				break ;
+			if (i > 0 && stackb->data < stackb->next->data)
+				stackb = swap(stackb, 2);
+			i++;
+		}
+	}
+	i = 0;
+	int aux;
+	aux = 0;
+	while (i < size)
+	{
+		if (find_maxnumberi(stackb) <= 2)
+		{
+			/*if (lsta->data < stackb->data)
+			{
+				lsta = rotate(lsta, 1);
+				lsta = pushing_to_stack(stackb, lsta, 2);
+				stackb = deletefromstack(stackb, 2, 1);
+				lsta = r_rotate(lsta, 1);
+				i++;
+			}*/
+			if (stackb->data > stackb->next->data)
+			{
+				lsta = pushing_to_stack(stackb, lsta, 2);
+				stackb = deletefromstack(stackb, 2, 1);
+				i++;
+			}
+			if (aux > 0)
+			{
+				while (aux--)
+					stackb = rotate(stackb, 2);
+			}
+			else
+				stackb = swap(stackb, 2);
+		}
+		else
+		{
+			while (find_maxnumberi(stackb) > 2)
+			{
+				stackb = r_rotate(stackb, 2);
+				aux++;	
+			}
+		}
+	}
+	while (lsta->prev)
+		lsta = lsta->prev;
+	*stacka = lsta;
+	return (stackb);
+}
+
 /*t_dlist	*annalysing_stack_b(t_dlist *stackb, t_dlist **stacka)
 {
 	if (checking_ifordered(stackb, 2) == 1)

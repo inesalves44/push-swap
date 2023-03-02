@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:12:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/27 17:16:24 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 01:09:27 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_dlist	*sort5numbers(t_dlist *stacka, t_dlist **lstb)
 	if (stackb->data < stackb->next->data)
 		stackb = swap(stackb, 2);
 	stacka = pushing_to_stack(stackb, stacka, 4);
-	stackb = deletefromstack(stackb, 4, 1);
+	stackb = deletefromb(stackb);
 	*lstb = stackb;
 	return (stacka);
 }

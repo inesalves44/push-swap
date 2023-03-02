@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/27 15:06:44 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 00:39:22 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,9 @@ t_dlist	*deletefromstack(t_dlist *lsta, int size, int a)
 	while (i < size / 2)
 	{
 		temp = lsta;
-		lsta = lsta->next;
 		if (!lsta->next)
 			break ;
+		lsta = lsta->next;
 		temp->next = NULL;
 		lsta->prev = NULL;
 		free(temp);
