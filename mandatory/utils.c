@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 11:29:37 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 19:57:04 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,28 +111,36 @@ void	print_dblist(t_dlist *lst)
 
 void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
 {
-	if (lst1 && lst2)
-	{		
+	if (lst1 || lst2)
+	{
+		ft_printf("\n\n");
 		ft_printf("A \t B\n");
-		while (lst1 || lst2)
+		while (lst1 && lst2)
 		{
-			if (lst1 && lst2)
-				ft_printf("%d \t %d\n", lst1->data, lst2->data);
-			else if (lst1 && !lst2)
-				ft_printf("%d \t\n", lst1->data);
-			else if (!lst1 && lst2)
-				ft_printf("  \t %d\n", lst2->data);
-			if (lst2->next && lst1->next)
+			ft_printf("%d \t %d\n", lst1->data, lst2->data);
+			lst2 = lst2->next;
+			lst1 = lst1->next;
+		}
+		if (lst1)
+		{
+			while (lst1)
 			{
-				lst2 = lst2->next;
+				ft_printf("%d \t\n", lst1->data);
+				if (!lst1->next)
+					break ;
 				lst1 = lst1->next;
 			}
-			else if (lst2->next && !lst1->next)
-				lst2 = lst2->next;
-			else if (lst1->next && !lst2->next)
-				lst1 = lst1->next;
-			else if (!lst2->next && !lst1->next)
-				break ;
 		}
+		if (lst2)
+		{
+			while (lst2)
+			{
+				ft_printf("  \t %d\n", lst2->data);
+				if (!lst2->next)
+					break ;
+				lst2 = lst2->next;
+			}
+		}
+		ft_printf("\n\n");
 	}
 }

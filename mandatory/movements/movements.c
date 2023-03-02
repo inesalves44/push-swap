@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 01:03:29 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 22:07:52 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,6 @@ t_dlist	*rotate(t_dlist *lst, int a)
 	return (lst);
 }
 
-void	rotate_total(t_dlist **stack_a, t_dlist **stack_b)
-{
-	t_dlist	*lsta;
-	t_dlist	*lstb;
-
-	lsta = *stack_a;
-	lstb = *stack_b;
-	lsta = rotate(lsta, 0);
-	lstb = rotate(lstb, 0);
-	stack_a = &lsta;
-	stack_b = &lstb;
-	ft_printf("rr\n");
-}
-
 t_dlist	*r_rotate(t_dlist *lst, int a)
 {
 	int		temp;
@@ -80,16 +66,22 @@ t_dlist	*r_rotate(t_dlist *lst, int a)
 	return (lst);
 }
 
-void	r_rotate_total(t_dlist **stack_a, t_dlist **stack_b)
+t_dlist	*swap(t_dlist *test, int a)
 {
-	t_dlist	*lsta;
-	t_dlist	*lstb;
+	int		temp;
 
-	lsta = *stack_a;
-	lstb = *stack_b;
-	lsta = r_rotate(lsta, 0);
-	lstb = r_rotate(lstb, 0);
-	stack_a = &lsta;
-	stack_b = &lstb;
-	ft_printf("rrr\n");
+	test = reorder_stacks(test);
+	if (test)
+	{
+		temp = test->data;
+		test->data = test->next->data;
+		test->next->data = temp;
+		if (a == 1)
+			ft_printf("sa\n");
+		else
+			ft_printf("sb\n");
+	}
+	while (test->prev)
+		test = test->prev;
+	return (test);
 }
