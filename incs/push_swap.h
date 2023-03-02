@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/01 21:37:35 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:29:38 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	print_dblist(t_dlist *lst);
 void	free_list(t_dlist **head);
 t_dlist	*reorder_stacks(t_dlist *stacka);
 int		checking_ifordered(t_dlist *stacka, int i);
+void	print_dblist2(t_dlist *lst1, t_dlist *lst2);
 
 /*swap*/
 t_dlist	*swap(t_dlist *test, int a);
@@ -55,9 +56,10 @@ t_dlist	*stack_creation_ind(t_dlist *head);
 
 /*push*/
 t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb);
-t_dlist	*deletefromstack(t_dlist *lsta, int size, int a);
+t_dlist	*deletefromstack(t_dlist *lsta);
 t_dlist	*deletefromb(t_dlist *lstb);
-t_dlist	*pushing_to_stack(t_dlist *lsta, t_dlist *lstb, int size);
+t_dlist	*pushing_to_stack(t_dlist **stackd, t_dlist *lsti);
+t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char a, char t);
 
 /*rotate*/
 t_dlist	*rotate(t_dlist *head, int a);

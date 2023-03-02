@@ -6,11 +6,34 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 00:39:22 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:04:54 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/push_swap.h"
+
+t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char a, char t)
+{
+	t_dlist	*temp;
+
+	temp = *lstd;
+	if (t != 'f')
+	{
+		lsti = pushing_to_stack(&temp, lsti);
+		temp = deletefromstack(temp);
+		if (a == 'a')
+			ft_printf("pa\n");
+		else if (a == 'b')
+			ft_printf("pb\n");
+	}
+	else if (t == 'f')
+	{
+		lsti = pushing_toa(lsti, temp);
+		temp = deletefromb(temp);
+	}
+	*lstd = temp;
+	return (lsti);
+}
 
 t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb)
 {
@@ -38,55 +61,39 @@ t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb)
 	free_list(&temp);
 }
 
-t_dlist	*pushing_to_stack(t_dlist *lsta, t_dlist *lstb, int size)
+t_dlist	*pushing_to_stack(t_dlist **stackd, t_dlist *lsti)
 {
-	int	i;
+	t_dlist *lstd;
 
-	i = 0;
-	while (i < size / 2)
+	lstd = *stackd;
+	if (!lsti)
+		lsti = ft_createnode(lstd->data);
+	else
 	{
-		if (!lstb)
-			lstb = ft_createnode(lsta->data);
-		else
-		{
-			lstb->prev = ft_createnode(lsta->data);
-			lstb->prev->next = lstb;
-			lstb = lstb->prev;
-		}
-		if (!lsta->next)
-			break ;
-		lsta = lsta->next;
-		i++;
+		lsti->prev = ft_createnode(lstd->data);
+		lsti->prev->next = lsti;
+		lsti = lsti->prev;
 	}
-	while (lsta->prev)
-		lsta = lsta->prev;
-	while (lstb->prev)
-		lstb = lstb->prev;
-	return (lstb);
+	while (lstd->prev)
+		lstd = lstd->prev;
+	while (lsti->prev)
+		lsti = lsti->prev;
+	*stackd = lstd;
+	return (lsti);
 }
 
-t_dlist	*deletefromstack(t_dlist *lsta, int size, int a)
+t_dlist	*deletefromstack(t_dlist *lsta)
 {
-	int		i;
 	t_dlist	*temp;
 
-	i = 0;
-	temp = NULL;
-	while (i < size / 2)
-	{
-		temp = lsta;
-		if (!lsta->next)
-			break ;
+	temp = lsta;
+	if (!lsta->next)
+		lsta = NULL;
+	else
 		lsta = lsta->next;
-		temp->next = NULL;
-		lsta->prev = NULL;
-		free(temp);
-		if (a == 1)
-			ft_printf("pa\n");
-		else
-			ft_printf("pb\n");
-		i++;
-	}
+	temp->next = NULL;
+	lsta->prev = NULL;
+	free(temp);
 	while (lsta->prev)
 		lsta = lsta->prev;
 	return (lsta);

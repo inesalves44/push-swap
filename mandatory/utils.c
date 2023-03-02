@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/02/27 11:26:55 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 11:29:37 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,29 +52,6 @@ int	ft_tdsize(t_dlist *head)
 	return (i);
 }
 
-void	print_dblist(t_dlist *lst)
-{
-	if (lst)
-	{		
-		ft_printf("-------front list-------\n");
-		while (lst)
-		{
-			ft_printf("%d\n", lst->data);
-			if (lst->next == NULL)
-				break ;
-			lst = lst->next;
-		}
-		ft_printf("------- back list-------\n");
-		while (lst)
-		{
-			ft_printf("%d\n", lst->data);
-			lst = lst->prev;
-		}
-	}
-	else
-		ft_printf("NO LIST\n");
-}
-
 void	free_list(t_dlist **head)
 {
 	t_dlist	*lst;
@@ -107,4 +84,55 @@ t_dlist	*reorder_stacks(t_dlist *stacka)
 			stacka = stacka->prev;
 	}
 	return (stacka);
+}
+
+void	print_dblist(t_dlist *lst)
+{
+	if (lst)
+	{		
+		ft_printf("-------front list-------\n");
+		while (lst)
+		{
+			ft_printf("%d\n", lst->data);
+			if (lst->next == NULL)
+				break ;
+			lst = lst->next;
+		}
+		ft_printf("------- back list-------\n");
+		while (lst)
+		{
+			ft_printf("%d\n", lst->data);
+			lst = lst->prev;
+		}
+	}
+	else
+		ft_printf("NO LIST\n");
+}
+
+void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
+{
+	if (lst1 && lst2)
+	{		
+		ft_printf("A \t B\n");
+		while (lst1 || lst2)
+		{
+			if (lst1 && lst2)
+				ft_printf("%d \t %d\n", lst1->data, lst2->data);
+			else if (lst1 && !lst2)
+				ft_printf("%d \t\n", lst1->data);
+			else if (!lst1 && lst2)
+				ft_printf("  \t %d\n", lst2->data);
+			if (lst2->next && lst1->next)
+			{
+				lst2 = lst2->next;
+				lst1 = lst1->next;
+			}
+			else if (lst2->next && !lst1->next)
+				lst2 = lst2->next;
+			else if (lst1->next && !lst2->next)
+				lst1 = lst1->next;
+			else if (!lst2->next && !lst1->next)
+				break ;
+		}
+	}
 }

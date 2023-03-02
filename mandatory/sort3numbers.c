@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:12:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 01:09:27 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/02 10:49:40 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_dlist	*sort3numbers_rev(t_dlist *stackb)
 	return (stackb);
 }
 
-t_dlist	*check_top_rev(t_dlist *lstb, t_dlist **stacka, int max, int max2)
+/*t_dlist	*check_top_rev(t_dlist *lstb, t_dlist **stacka, int max, int max2)
 {
 	if (lstb->data == max || lstb->data == max2)
 	{
@@ -67,14 +67,13 @@ t_dlist	*sort5numbers_rev(t_dlist *stackb, t_dlist **stacka)
 		lsta = swap(lsta, 1);
 	stacka = &lsta;
 	return (stackb);
-}
+}*/
 
 t_dlist	*check_top(t_dlist *lsta, t_dlist **stackb, int min, int min2)
 {
 	if (lsta->data == min || lsta->data == min2)
 	{
-		*stackb = pushing_to_stack(lsta, *stackb, 2);
-		lsta = deletefromstack(lsta, 2, 0);
+		*stackb = push(*stackb, &lsta, 'b', 'n');
 		lsta = check_top(lsta, stackb, min, min2);
 	}
 	else if (ft_tdsize(lsta) >= 4)
@@ -104,8 +103,7 @@ t_dlist	*sort5numbers(t_dlist *stacka, t_dlist **lstb)
 		stacka = swap(stacka, 1);
 	if (stackb->data < stackb->next->data)
 		stackb = swap(stackb, 2);
-	stacka = pushing_to_stack(stackb, stacka, 4);
-	stackb = deletefromb(stackb);
+	stacka = push(stacka, &stackb, 'a', 'f');
 	*lstb = stackb;
 	return (stacka);
 }
