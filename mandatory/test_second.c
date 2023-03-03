@@ -1,5 +1,70 @@
 
+/*t_dlist	*lsta;
+	t_dlist	*aux;
+	int		help2;
+	int		help;
+	int		mid;
 
+	lsta = *stacka;
+	aux = *temp;
+	help = 0;
+	mid = 0;
+	if (get_max(stackb) % 2 != 0 && aux->next)
+		mid = (get_max(stackb) - aux->next->data) / 2 + aux->next->data + 1;
+	else if (get_max(stackb) % 2 == 0 && aux->next)
+		mid = (get_max(stackb) - aux->next->data) / 2 + aux->next->data;
+	else if (!aux->next && get_max(stackb) % 2 == 0)
+		mid = get_max(stackb) / 2;
+	else if (!aux->next && get_max(stackb) % 2 != 0)
+		mid = get_max(stackb) / 2 + 1;
+	if (aux->next)
+		help2 = get_max(stackb) - aux->next->data;
+	else
+		help2 = get_max(stackb) / 2;
+	while (help2 >= 1)
+	{
+		print_dblist2(lsta, stackb);
+		if (stackb->data > mid)
+		{
+			lsta = push(lsta, &stackb, 'a', 'n');
+			if (lsta->next->data < lsta->data)
+				lsta = swap(lsta, 1);
+		}
+		else
+		{
+			stackb = rotate(stackb, 1);
+			help++;
+		}
+		help2--;
+	}
+	print_dblist2(lsta, stackb);
+	while (help-- > 0 && aux->next)
+		stackb = r_rotate(stackb, 2);
+	if (get_max(stackb) % 2 != 0 && aux->next)
+		mid = (get_max(stackb) - aux->next->data) / 2 + aux->next->data + 1;
+	else if (get_max(stackb) % 2 == 0 && aux->next)
+		mid = (get_max(stackb) - aux->next->data) / 2 + aux->next->data;
+	else if (!aux->next && get_max(stackb) % 2 == 0)
+		mid = get_max(stackb) / 2;
+	else if (!aux->next && get_max(stackb) % 2 != 0)
+		mid = get_max(stackb) / 2 + 1;
+	if (aux->next)
+		help2 = get_max(stackb) - aux->next->data;
+	else
+		help2 = get_max(stackb);
+	print_dblist2(lsta, stackb);
+	while (help2-- > 0)
+	{
+		print_dblist2(lsta, stackb);
+		lsta = push(lsta, &stackb, 'a', 'n');
+		if (lsta->next->data < lsta->data)
+			lsta = swap(lsta, 1);
+	}
+	print_dblist2(lsta, stackb);
+	if (ft_tdsize(aux) > 1)
+		aux = deletefromstack(aux);
+	*stacka = lsta;
+	*temp = aux;*/
 t_dlist	*pass_to_a(t_dlist *stackb, t_dlist **stacka, int size)
 {
 	int		i;
