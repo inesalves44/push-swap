@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/03 15:15:04 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/04 13:06:45 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	find_number(t_dlist *stack, int number)
 	return (0);
 }
 
-/*t_dlist *separte_stacks2(t_dlist *stacka, t_dlist **stackb, int size)
+t_dlist *separte_stacks2(t_dlist *stacka, t_dlist **stackb, int size)
 {
 	t_dlist	*lstb;
 	int		aux2;
@@ -131,7 +131,7 @@ t_dlist	*do_stacka2(t_dlist *stacka, t_dlist **stackb, t_dlist **temp)
 	return (stacka);
 }
 
-t_dlist	*test(t_dlist **stacka, t_dlist *stackb, t_dlist **temp, int i, int help)
+t_dlist	*test(t_dlist **stacka, t_dlist *stackb, t_dlist **temp, int help)
 {
 	t_dlist	*aux;
 	t_dlist	*lsta;
@@ -140,40 +140,64 @@ t_dlist	*test(t_dlist **stacka, t_dlist *stackb, t_dlist **temp, int i, int help
 	lsta = *stacka;
 	aux = *temp;
 	if (aux->next)
-	{
-		if (get_max(stackb) % 2 == 0)
-			mid = (get_max(stackb) - aux->next->data) / 2;
-		else
-			mid = (get_max(stackb) - aux->next->data) / 2 + 1;
-	}
+		mid = (get_max(stackb) - aux->next->data) / 2 + 1 + aux->next->data;
 	else
+		mid = get_max(stackb) / 2 + 1;
+	while (mid < (get_max(stackb)))
 	{
-		if (get_max(stackb) % 2 == 0)
-			mid = get_max(stackb) / 2;
+		if (stackb->data >= mid)
+		{
+			lsta = push(lsta, &stackb, 'a', 'n');
+			if (lsta->data > lsta->next->data && lsta->next->data < aux->data)
+				lsta = swap(lsta, 1);
+		}
 		else
-			mid = get_max(stackb) / 2 + 1;
-	}
-	if (stackb->data > mid)
-		lsta = push(lsta, &stackb, 'a', 'n');
-	else
-	{
-		while (stackb->data < mid && help++)
+		{
 			stackb = rotate(stackb, 2);
+			help++;
+		}
 	}
+	printf("\n\n%d\n\n", mid);
+	while (help-- > 0 && mid == get_max(stackb))
+		stackb = r_rotate(stackb, 2);
+	while (aux->next->data != get_max(stackb))
+	{
+		if (stackb->data > aux->next->data)
+		{
+			lsta = push(lsta, &stackb, 'a', 'n');
+			if (lsta->data > lsta->next->data && lsta->next->data < mid)
+				lsta = swap(lsta, 1);
+		}
+		else
+		{
+			stackb = rotate(stackb, 2);
+			help++;
+		}
+	}
+	while (help-- > 0 && aux->next->data == get_max(stackb))
+		stackb = r_rotate(stackb, 2);
 	*stacka = lsta;
-	if (aux->next && aux->next->data == get_max(stackb))
+	aux = deletefromstack(aux);
+	/*if (aux->next && aux->next->data == get_max(stackb))
 	{
 		aux = deletefromstack(aux);
-		stackb = test(stacka, stackb, 0, 0);
+		*temp = aux;
+		stackb = test(stacka, stackb, temp, 0);
 	}
+	else if (aux->next && aux->next->data != get_max(stackb))
+		stackb = test(stacka, stackb, temp, help);*/
 	*temp = aux;
 	return (stackb);
 }
 
 t_dlist	*do_stackb2(t_dlist **stacka, t_dlist *stackb, t_dlist **temp)
 {
-	stackb = test(stacka, stackb, temp, 0, 0);
-	
+	stackb = test(stacka, stackb, temp, 0);
+	print_dblist2(*stacka, stackb);
+	stackb = test(stacka, stackb, temp, 0);
+	print_dblist2(*stacka, stackb);
+	stackb = test(stacka, stackb, temp, 0);
+	print_dblist2(*stacka, stackb);
 	return (stackb);
 }
 
@@ -183,20 +207,17 @@ t_dlist	*sort100numbers(t_dlist *stacka, t_dlist **stackb)
 
 	temp = ft_createnode(0);
 	stacka = do_stacka2(stacka, stackb, &temp);
-	print_dblist2(stacka, *stackb);
-	print_dblist(temp);
+	*stackb = do_stackb2(&stacka, *stackb, &temp);
+	//print_dblist(temp);
 	/**stackb = do_stackb2(&stacka, *stackb, &temp);
-	print_dblist2(stacka, *stackb);
-	print_dblist(temp);
-	*stackb = do_stackb2(&stacka, *stackb, &temp);
 	*stackb = do_stackb2(&stacka, *stackb, &temp);
 	print_dblist2(stacka, *stackb);
 	print_dblist(temp);
 	*stackb = do_stackb2(&stacka, *stackb, &temp);
 	print_dblist2(stacka, *stackb);
-	print_dblist(temp);
+	print_dblist(temp);*/
 	return (stacka);
-}*/
+}
 
 t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 {
@@ -211,10 +232,10 @@ t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 		stacka = sort3numbers(stacka);
 	else if (ft_tdsize(stacka) < 6)
 		stacka = sort5numbers(stacka, stackb);
-	else if (ft_tdsize(stacka) <= 100)
-		stacka = sortless100numbers(stacka, stackb);
 	//else if (ft_tdsize(stacka) <= 100)
-	//	stacka = sort100numbers(stacka, stackb);
+		//stacka = sortless100numbers(stacka, stackb);
+	else if (ft_tdsize(stacka) <= 100)
+		stacka = sort100numbers(stacka, stackb);
 	//printf("%d\n", ft_tdsize(stacka));
 	return (stacka);
 }
