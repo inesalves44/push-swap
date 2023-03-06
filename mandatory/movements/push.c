@@ -6,32 +6,36 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 11:04:54 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/06 16:40:52 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/push_swap.h"
 
-t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char a, char t)
+t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char a, char t, char **str)
 {
 	t_dlist	*temp;
+	char	*str2;
 
 	temp = *lstd;
+	str2 = *str;
 	if (t != 'f')
 	{
 		lsti = pushing_to_stack(&temp, lsti);
 		temp = deletefromstack(temp);
 		if (a == 'a')
-			ft_printf("pa\n");
+			str2 = ft_strjoin(str2, "pa\n");
 		else if (a == 'b')
-			ft_printf("pb\n");
+			str2 = ft_strjoin(str2, "pb\n");
 	}
 	else if (t == 'f')
 	{
 		lsti = pushing_toa(lsti, temp);
-		temp = deletefromb(temp);
+		temp = deletefromb(temp, str);
 	}
 	*lstd = temp;
+	if (t != 'f')
+		*str = str2;
 	return (lsti);
 }
 
@@ -99,10 +103,12 @@ t_dlist	*deletefromstack(t_dlist *lsta)
 	return (lsta);
 }
 
-t_dlist	*deletefromb(t_dlist *lstb)
+t_dlist	*deletefromb(t_dlist *lstb, char **str)
 {
 	t_dlist	*temp;
+	char	*str2;
 
+	str2 = *str;
 	while (lstb)
 	{
 		if (lstb->next)
@@ -118,8 +124,9 @@ t_dlist	*deletefromb(t_dlist *lstb)
 			free(lstb);
 			break ;
 		}
-		ft_printf("pa\n");
+		str2 = ft_strjoin(str2, "pa\n");
 	}
-	ft_printf("pa\n");
+	str2 = ft_strjoin(str2, "pa\n");
+	*str = str2;
 	return (NULL);
 }

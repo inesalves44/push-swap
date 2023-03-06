@@ -6,13 +6,13 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 22:05:00 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 22:10:47 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/06 19:31:33 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high)
+t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high, char **str)
 {
 	t_dlist	*lstb;
 	int		aux2;
@@ -21,23 +21,32 @@ t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high)
 	aux2 = 0;
 	if (stacka->data <= size && high == 0)
 	{
-		lstb = push(lstb, &stacka, 'b', 'n');
-		if (lstb->data == get_min(lstb) && lstb->next)
-			lstb = rotate(lstb, 2);
+		lstb = push(lstb, &stacka, 'b', 'n', str);
+		if (lstb->next)
+		{
+			if (lstb->data <= size / 4 && lstb->next->data > size / 4)
+				lstb = rotate(lstb, 2, str);
+			else if (lstb->data <= (size / 4 * 3) && lstb->next->data > (size / 4 * 3))
+				lstb = swap(lstb, 2, str);
+		}
 		*stackb = lstb;
 		aux2 = 1;
 	}
 	else if (stacka->data > size && high == 1)
 	{
-		lstb = push(lstb, &stacka, 'b', 'n');
-		if (lstb->data == get_min(lstb) && lstb->next)
-			lstb = rotate(lstb, 2);
+		lstb = push(lstb, &stacka, 'b', 'n', str);
+		if (lstb->next)
+		{
+			if (lstb->data < (size + size / 4) && lstb->next->data > (size + size / 4))
+				lstb = rotate(lstb, 2, str);
+			else if (lstb->data <= (size + size / 4 * 3) && lstb->next->data > (size + size / 4 * 3))
+				lstb = swap(lstb, 2, str);
+		}
 		*stackb = lstb;
 		aux2 = 1;
 	}
 	if (aux2 == 0)
-		stacka = rotate(stacka, 1);
-	//print_dblist2(stacka, lstb);
+		stacka = rotate(stacka, 1, str);
 	while (stacka)
 	{
 		if (stacka->data <= size && high == 0)
@@ -50,7 +59,7 @@ t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high)
 	}
 	while (stacka->prev)
 		stacka = stacka->prev;
-	stacka = separte_stacks(stacka, stackb, size, high);
+	stacka = separte_stacks(stacka, stackb, size, high, str);
 	return(stacka);
 }
 
@@ -83,7 +92,7 @@ int	get_pos(int max, int min, int size, char *test)
 	return (pos);
 }
 
-t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka)
+t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka, char **str)
 {
 	int		pos;
 	int		min;
@@ -94,7 +103,7 @@ t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka)
 	lsta = *stacka;
 	if (ft_tdsize(stackb) == 1)
 	{
-		lsta = push(lsta, &stackb, 'a', 'f');
+		lsta = push(lsta, &stackb, 'a', 'f', str);
 		*stacka = lsta;
 		return (stackb);
 	}
@@ -110,22 +119,21 @@ t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka)
 	int i = 0;
 	while (i < pos)
 	{
-		//print_dblist2(lsta, stackb);
 		if (test == 'f')
-			stackb = rotate(stackb, 2);
+			stackb = rotate(stackb, 2, str);
 		else
-			stackb = r_rotate(stackb, 2);
+			stackb = r_rotate(stackb, 2, str);
 		i++;
 	}
-	lsta = push(lsta, &stackb, 'a', 'n');
+	lsta = push(lsta, &stackb, 'a', 'n', str);
 	if (min == lsta->data)
-		lsta = rotate(lsta, 1);
+		lsta = rotate(lsta, 1, str);
 	*stacka = lsta;
-	stackb = do_stackb(stackb, stacka);
+	stackb = do_stackb(stackb, stacka, str);
 	return (stackb);
 }
 
-t_dlist	*sortless100numbers(t_dlist *stacka, t_dlist **stackb)
+t_dlist	*sortless100numbers(t_dlist *stacka, t_dlist **stackb, char **str)
 {
 	t_dlist	*lstb;
 	int		size;
@@ -134,21 +142,32 @@ t_dlist	*sortless100numbers(t_dlist *stacka, t_dlist **stackb)
 		size = ft_tdsize(stacka) / 2;
 	else
 		size = ft_tdsize(stacka) / 2 + 1;
-	stacka = separte_stacks(stacka, stackb, size, 0);
+	lstb = *stackb;
+	while (stacka->next)
+		stacka = stacka->next;
+	while (stacka->data <= size)
+	{
+		while (stacka->prev)
+			stacka = stacka->prev;
+		stacka = r_rotate(stacka, 1, str);
+		lstb = push(lstb, &stacka, 'a', 'n', str);
+		while (stacka->next)
+			stacka = stacka->next;
+	}
+	while (stacka->prev)
+		stacka = stacka->prev;
+	stacka = separte_stacks(stacka, stackb, size, 0, str);
 	while (stacka->prev)
 		stacka = stacka->prev;
 	lstb = *stackb;
-	//print_dblist2(stacka, lstb);
-	lstb = do_stackb(lstb, &stacka);
+	lstb = do_stackb(lstb, &stacka, str);
 	*stackb = lstb;
-	stacka = separte_stacks(stacka, stackb, size, 1);
+	stacka = separte_stacks(stacka, stackb, size, 1, str);
 	while (stacka->prev)
 		stacka = stacka->prev;
 	lstb = *stackb;
-	//print_dblist2(stacka, lstb);
-	lstb = do_stackb(lstb, &stacka);
+	lstb = do_stackb(lstb, &stacka, str);
 	while (checking_ifordered(stacka, 1) != 1)
-		stacka = rotate(stacka, 1);
-	//print_dblist(stacka);
+		stacka = rotate(stacka, 1, str);
 	return (stacka);
 }

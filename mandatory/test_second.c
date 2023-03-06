@@ -1,3 +1,167 @@
+t_dlist *separte_stacks2(t_dlist *stacka, t_dlist **stackb, int size)
+{
+	t_dlist	*lstb;
+	int		aux2;
+
+	lstb = *stackb;
+	aux2 = 0;
+	while (stacka->prev)
+		stacka = stacka->prev;
+	if (stacka->data <= size)
+	{
+		lstb = push(lstb, &stacka, 'b', 'n');
+		*stackb = lstb;
+		aux2 = 1;
+	}
+	if (aux2 == 0)
+		stacka = rotate(stacka, 1);
+	while (stacka)
+	{
+		if (stacka->data <= size)
+			break ;
+		else if (!stacka->next)
+			return (stacka);
+		stacka = stacka->next;
+	}
+	while (stacka->prev)
+		stacka = stacka->prev;
+	stacka = separte_stacks2(stacka, stackb, size);
+	return(stacka);
+}
+
+t_dlist	*do_stacka2(t_dlist *stacka, t_dlist **stackb, t_dlist **temp)
+{
+	t_dlist	*lstb;
+	t_dlist	*aux;
+	int		size;
+
+	lstb = *stackb;
+	aux = *temp;
+	if (ft_tdsize(stacka) % 2 == 0)
+		size = ft_tdsize(stacka) / 2 + aux->data;
+	else
+		size = ft_tdsize(stacka) / 2 + 1 + aux->data;
+	if (aux->data == 0)
+		aux = ft_createnode(size);
+	else
+	{
+		aux->prev = ft_createnode(size);
+		aux->prev->next = aux;
+		aux = aux->prev;
+	}
+	if(stacka->data <= size)
+		lstb = push(lstb, &stacka, 'b', 'n');
+	while (stacka)
+	{
+		if (!stacka->next)
+			break ;
+		stacka = stacka->next;
+	}
+	if(stacka->data <= size)
+	{	
+		while (stacka->prev)
+			stacka = stacka->prev;
+		stacka = r_rotate(stacka, 1);
+		lstb = push(lstb, &stacka, 'b', 'n');
+	}
+	while (stacka->prev)
+		stacka = stacka->prev;
+	*stackb = lstb;
+	stacka = separte_stacks2(stacka, stackb, size);
+	while (stacka->prev)
+		stacka = stacka->prev;
+	if (checking_ifordered(stacka, 1) == 1)
+		return (stacka);
+	if (ft_tdsize(stacka) > 3)
+		stacka = do_stacka2(stacka, stackb, &aux);
+	while(aux->prev)
+		aux = aux->prev;
+	*temp = aux;
+	stacka = sort3numbers(stacka);
+	return (stacka);
+}
+
+t_dlist	*test(t_dlist **stacka, t_dlist *stackb, t_dlist **temp, int help)
+{
+	t_dlist	*aux;
+	t_dlist	*lsta;
+	int		mid;
+
+	lsta = *stacka;
+	aux = *temp;
+	if (aux->next)
+		mid = (get_max(stackb) - aux->next->data) / 2 + 1 + aux->next->data;
+	else
+		mid = get_max(stackb) / 2 + 1;
+	while (mid < (get_max(stackb)))
+	{
+		print_dblist2(lsta, stackb);
+		if (stackb->data > mid)
+		{
+			lsta = push(lsta, &stackb, 'a', 'n');
+			if (lsta->data > lsta->next->data && lsta->next->data < aux->data)
+				lsta = swap(lsta, 1);
+		}
+		else
+		{
+			stackb = rotate(stackb, 2);
+			help++;
+		}
+	}
+	printf("\n\n%d\n\n", mid);
+	print_dblist2(lsta, stackb);
+	while (help > 0)
+	{
+		stackb = r_rotate(stackb, 2);
+		help--;
+	}
+	while (aux->next->data != get_max(stackb))
+	{
+		if (stackb->data > aux->next->data)
+		{
+			lsta = push(lsta, &stackb, 'a', 'n');
+			if (lsta->data > lsta->next->data && lsta->next->data < mid)
+				lsta = swap(lsta, 1);
+		}
+		else
+		{
+			stackb = rotate(stackb, 2);
+			help++;
+		}
+	}
+	print_dblist2(lsta, stackb);
+	while (help > 0)
+	{
+		stackb = r_rotate(stackb, 2);
+		help--;
+	}
+	*stacka = lsta;
+	aux = deletefromstack(aux);
+	*temp = aux;
+	return (stackb);
+}
+
+t_dlist	*do_stackb2(t_dlist **stacka, t_dlist *stackb, t_dlist **temp)
+{
+	print_dblist2(*stacka, stackb);
+	print_dblist(*temp);
+	stackb = test(stacka, stackb, temp, 0);
+	stackb = test(stacka, stackb, temp, 0);
+	stackb = test(stacka, stackb, temp, 0);
+	print_dblist2(*stacka, stackb);
+	print_dblist(*temp);
+	return (stackb);
+}
+
+t_dlist	*sort100numbers(t_dlist *stacka, t_dlist **stackb)
+{
+	t_dlist	*temp;
+
+	temp = ft_createnode(0);
+	stacka = do_stacka2(stacka, stackb, &temp);
+	*stackb = do_stackb2(&stacka, *stackb, &temp);
+	return (stacka);
+}
 
 /*t_dlist	*lsta;
 	t_dlist	*aux;
