@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 22:05:00 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/06 19:31:33 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/07 15:05:45 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,13 +149,16 @@ t_dlist	*sortless100numbers(t_dlist *stacka, t_dlist **stackb, char **str)
 	{
 		while (stacka->prev)
 			stacka = stacka->prev;
+		print_dblist(stacka);
 		stacka = r_rotate(stacka, 1, str);
-		lstb = push(lstb, &stacka, 'a', 'n', str);
+		print_dblist(stacka);
+		lstb = push(lstb, &stacka, 'b', 'n', str);
 		while (stacka->next)
 			stacka = stacka->next;
 	}
 	while (stacka->prev)
 		stacka = stacka->prev;
+	print_dblist2(stacka, lstb);
 	stacka = separte_stacks(stacka, stackb, size, 0, str);
 	while (stacka->prev)
 		stacka = stacka->prev;
