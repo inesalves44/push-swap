@@ -1,6 +1,11 @@
 {
 	"files.associations": {
 		"push_swap.h": "c",
-		"get_next_line_bonus.h": "c"
+		"get_next_line_bonus.h": "c",
+		"array": "c",
+		"string_view": "c",
+		"initializer_list": "c",
+		"utility": "c",
+		"string": "c"
 	}
 }

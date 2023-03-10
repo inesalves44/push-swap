@@ -6,52 +6,48 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 22:05:00 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/07 15:05:45 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/10 11:40:11 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high, char **str)
+t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, char **str, t_utils *utils)
 {
-	t_dlist	*lstb;
 	int		aux2;
 
-	lstb = *stackb;
 	aux2 = 0;
-	if (stacka->data <= size && high == 0)
+	if (stacka->data <= utils->half && utils->high == 0)
 	{
-		lstb = push(lstb, &stacka, 'b', 'n', str);
-		if (lstb->next)
+		*stackb = push_b(*stackb, &stacka, str);
+		if ((*stackb)->next)
 		{
-			if (lstb->data <= size / 4 && lstb->next->data > size / 4)
-				lstb = rotate(lstb, 2, str);
-			else if (lstb->data <= (size / 4 * 3) && lstb->next->data > (size / 4 * 3))
-				lstb = swap(lstb, 2, str);
+			if ((*stackb)->data <= utils->half / 4 && (*stackb)->next->data > utils->half / 4)
+				*stackb = rotate_b(*stackb, str);
+			else if ((*stackb)->data <= (utils->half / 4 * 3) && (*stackb)->next->data > (utils->half / 4 * 3))
+				*stackb = swap_b(*stackb, str);
 		}
-		*stackb = lstb;
 		aux2 = 1;
 	}
-	else if (stacka->data > size && high == 1)
+	else if (stacka->data > utils->half && utils->high == 1)
 	{
-		lstb = push(lstb, &stacka, 'b', 'n', str);
-		if (lstb->next)
+		*stackb = push_b(*stackb, &stacka, str);
+		if ((*stackb)->next)
 		{
-			if (lstb->data < (size + size / 4) && lstb->next->data > (size + size / 4))
-				lstb = rotate(lstb, 2, str);
-			else if (lstb->data <= (size + size / 4 * 3) && lstb->next->data > (size + size / 4 * 3))
-				lstb = swap(lstb, 2, str);
+			if ((*stackb)->data < (utils->half + utils->half / 4) && (*stackb)->next->data > (utils->half + utils->half / 4))
+				*stackb = rotate_b(*stackb, str);
+			else if ((*stackb)->data <= (utils->half + utils->half / 4 * 3) && (*stackb)->next->data > (utils->half + utils->half / 4 * 3))
+				*stackb = swap_b(*stackb, str);
 		}
-		*stackb = lstb;
 		aux2 = 1;
 	}
 	if (aux2 == 0)
-		stacka = rotate(stacka, 1, str);
+		stacka = rotate(stacka, str);
 	while (stacka)
 	{
-		if (stacka->data <= size && high == 0)
+		if (stacka->data <= utils->half && utils->high == 0)
 			break ;
-		else if (stacka->data > size && high == 1)
+		else if (stacka->data > utils->half && utils->high == 1)
 			break ;
 		else if (!stacka->next)
 			return (stacka);
@@ -59,118 +55,91 @@ t_dlist *separte_stacks(t_dlist *stacka, t_dlist **stackb, int size, int high, c
 	}
 	while (stacka->prev)
 		stacka = stacka->prev;
-	stacka = separte_stacks(stacka, stackb, size, high, str);
+	stacka = separte_stacks(stacka, stackb, str, utils);
 	return(stacka);
 }
 
-int	get_pos(int max, int min, int size, char *test)
+int	get_pos(char *s, t_dlist *stackb)
 {
-	char	s;
 	int		pos;
 	
-	if (min > size - min)
+	if (find_number(stackb, get_min(stackb)) > ft_tdsize(stackb) / 2)
 	{
-		pos = size - min + 1;
-		s = 's';
+		pos = ft_tdsize(stackb) - find_number(stackb, get_min(stackb)) + 1;
+		*s = 's';
 	}
 	else
 	{
-		pos = min - 1;
-		s = 'f';
+		pos = find_number(stackb, get_min(stackb)) - 1;
+		*s = 'f';
 	}
-	if (pos > size - max)
+	if (pos > ft_tdsize(stackb) - find_number(stackb, get_max(stackb)))
 	{
-		pos = size - max + 1;
-		s = 's';
+		pos = ft_tdsize(stackb) - find_number(stackb, get_max(stackb)) + 1;
+		*s = 's';
 	}
-	else if (pos >= max)
+	else if (pos >= find_number(stackb, get_max(stackb)))
 	{
-		pos = max - 1;
-		s = 'f';
+		pos = find_number(stackb, get_max(stackb)) - 1;
+		*s = 'f';
 	}
-	*test = s;
 	return (pos);
 }
 
-t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka, char **str)
+t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka, char **str, t_utils *utils)
 {
-	int		pos;
-	int		min;
-	int		max;
-	char	*a;
-	t_dlist	*lsta;
-	
-	lsta = *stacka;
+	int		i;
+	char	s;
+
 	if (ft_tdsize(stackb) == 1)
 	{
-		lsta = push(lsta, &stackb, 'a', 'f', str);
-		*stacka = lsta;
+		*stacka = push_final(*stacka, &stackb, str);
 		return (stackb);
 	}
-	min = get_min(stackb);
-	max = get_max(stackb);
-	char test = 'a';
-	a = &test;
-	int posmin = find_number(stackb, min);
-	int posmax = find_number(stackb, max);
-	int size = ft_tdsize(stackb);
-	pos = get_pos(posmax, posmin, size, a);
-	test = *a;
-	int i = 0;
-	while (i < pos)
+	utils->min_b = get_min(stackb);
+	utils->pos = get_pos(&s, stackb);
+	utils->test = s;
+	i = 0;
+	while (i < utils->pos)
 	{
-		if (test == 'f')
-			stackb = rotate(stackb, 2, str);
+		if (utils->test == 'f')
+			stackb = rotate_b(stackb, str);
 		else
-			stackb = r_rotate(stackb, 2, str);
+			stackb = r_rotate_b(stackb, str);
 		i++;
 	}
-	lsta = push(lsta, &stackb, 'a', 'n', str);
-	if (min == lsta->data)
-		lsta = rotate(lsta, 1, str);
-	*stacka = lsta;
-	stackb = do_stackb(stackb, stacka, str);
+	*stacka = push(*stacka, &stackb, str);
+	if (utils->min_b == (*stacka)->data)
+		*stacka = rotate(*stacka, str);
+	stackb = do_stackb(stackb, stacka, str, utils);
 	return (stackb);
 }
 
-t_dlist	*sortless100numbers(t_dlist *stacka, t_dlist **stackb, char **str)
+t_dlist	*sort100numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str)
 {
-	t_dlist	*lstb;
-	int		size;
-
-	if (ft_tdsize(stacka) % 2 == 0)
-		size = ft_tdsize(stacka) / 2;
-	else
-		size = ft_tdsize(stacka) / 2 + 1;
-	lstb = *stackb;
 	while (stacka->next)
 		stacka = stacka->next;
-	while (stacka->data <= size)
+	while (stacka->data <= utils->half)
 	{
 		while (stacka->prev)
 			stacka = stacka->prev;
-		print_dblist(stacka);
-		stacka = r_rotate(stacka, 1, str);
-		print_dblist(stacka);
-		lstb = push(lstb, &stacka, 'b', 'n', str);
+		stacka = r_rotate(stacka, str);
+		*stackb = push_b(*stackb, &stacka, str);
 		while (stacka->next)
 			stacka = stacka->next;
 	}
 	while (stacka->prev)
 		stacka = stacka->prev;
-	print_dblist2(stacka, lstb);
-	stacka = separte_stacks(stacka, stackb, size, 0, str);
+	stacka = separte_stacks(stacka, stackb,str, utils);
 	while (stacka->prev)
 		stacka = stacka->prev;
-	lstb = *stackb;
-	lstb = do_stackb(lstb, &stacka, str);
-	*stackb = lstb;
-	stacka = separte_stacks(stacka, stackb, size, 1, str);
+	*stackb = do_stackb(*stackb, &stacka, str, utils);
+	utils->high = 1;
+	stacka = separte_stacks(stacka, stackb, str, utils);
 	while (stacka->prev)
 		stacka = stacka->prev;
-	lstb = *stackb;
-	lstb = do_stackb(lstb, &stacka, str);
+	*stackb = do_stackb(*stackb, &stacka, str, utils);
 	while (checking_ifordered(stacka, 1) != 1)
-		stacka = rotate(stacka, 1, str);
+		stacka = rotate(stacka, str);
 	return (stacka);
 }

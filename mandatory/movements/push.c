@@ -6,36 +6,60 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/06 16:40:52 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/09 15:54:07 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../incs/push_swap.h"
 
-t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char a, char t, char **str)
+t_dlist	*push(t_dlist *lsti, t_dlist **lstd, char **str)
 {
 	t_dlist	*temp;
 	char	*str2;
 
 	temp = *lstd;
-	str2 = *str;
-	if (t != 'f')
-	{
-		lsti = pushing_to_stack(&temp, lsti);
-		temp = deletefromstack(temp);
-		if (a == 'a')
-			str2 = ft_strjoin(str2, "pa\n");
-		else if (a == 'b')
-			str2 = ft_strjoin(str2, "pb\n");
-	}
-	else if (t == 'f')
-	{
-		lsti = pushing_toa(lsti, temp);
-		temp = deletefromb(temp, str);
-	}
+	lsti = pushing_to_stack(&temp, lsti);
+	temp = deletefromstack(temp);
+	str2 = mod_strdup("pa\n");
+	*str = mod_strjoin(*str, str2);
+	free(str2);
 	*lstd = temp;
-	if (t != 'f')
-		*str = str2;
+	return (lsti);
+}
+
+t_dlist	*push_final(t_dlist *lsti, t_dlist **lstd, char **str)
+{
+	t_dlist	*temp;
+	int		i;
+	char	*str2;
+
+	temp = *lstd;
+	lsti = pushing_toa(lsti, temp);
+	i = deletefromb(temp);
+	while (i > 0)
+	{
+		str2 = ft_strdup("pa\n");
+		*str = mod_strjoin(*str, str2);
+		free(str2);
+		str2 = NULL;
+		i--;
+	}
+	*lstd = NULL;
+	return (lsti);
+}
+
+t_dlist	*push_b(t_dlist *lsti, t_dlist **lstd, char **str)
+{
+	t_dlist	*temp;
+	char	*str2;
+
+	temp = *lstd;
+	lsti = pushing_to_stack(&temp, lsti);
+	temp = deletefromstack(temp);
+	str2 = mod_strdup("pb\n");
+	*str = mod_strjoin(*str, str2);
+	free(str2);
+	*lstd = temp;
 	return (lsti);
 }
 
@@ -103,12 +127,12 @@ t_dlist	*deletefromstack(t_dlist *lsta)
 	return (lsta);
 }
 
-t_dlist	*deletefromb(t_dlist *lstb, char **str)
+int	deletefromb(t_dlist *lstb)
 {
 	t_dlist	*temp;
-	char	*str2;
-
-	str2 = *str;
+	int		i;
+	
+	i = 0;
 	while (lstb)
 	{
 		if (lstb->next)
@@ -124,9 +148,8 @@ t_dlist	*deletefromb(t_dlist *lstb, char **str)
 			free(lstb);
 			break ;
 		}
-		str2 = ft_strjoin(str2, "pa\n");
+		i++;
 	}
-	str2 = ft_strjoin(str2, "pa\n");
-	*str = str2;
-	return (NULL);
+	i++;
+	return (i);
 }

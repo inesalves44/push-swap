@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/07 13:43:57 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/10 16:03:25 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,39 +91,50 @@ void	treating_string(char *str, int count)
 	}
 	ft_printf("%s", args[i]);
 	ft_printf("\n");
+	i = 0;
+	while (args[i])
+	{
+		free(args[i]);
+		i++;
+	}
+	free(args);
 }
 
 t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 {
+	t_utils	utils;
+	int		i;
+	int		count;
 	char	*str;
 
-	str = (char *)malloc(sizeof(char) * 1);
-	if(!str)
-		return (NULL);
-	str[0] = '\0';
+	str = NULL;
+	utils = creting_struck(stacka);
 	if (checking_ifordered(stacka, 1) == 1)
 	{
 		free_list(&stacka);
+		free(str);
 		exit(EXIT_SUCCESS);
 	}
 	if (ft_tdsize(stacka) < 3)
-		stacka = swap(stacka, 1, &str);
+		stacka = swap(stacka, &str);
 	else if (ft_tdsize(stacka) < 4)
-		stacka = sort3numbers(stacka, &str);
+		stacka = sort3numbers(stacka, &utils, &str);
 	else if (ft_tdsize(stacka) < 6)
-		stacka = sort5numbers(stacka, stackb, &str);
+		stacka = sort5numbers(stacka, stackb, &utils, &str);
 	else if (ft_tdsize(stacka) <= 100)
-		stacka = sortless100numbers(stacka, stackb, &str);
-	int i = 0;
-	int count = 0;
-	while (str[i] != '\0')
-	{
+		stacka = sort100numbers(stacka, stackb, &utils, &str);
+	else if (ft_tdsize(stacka) <= 500)
+		stacka = sort500numbers(stacka, stackb, &utils, &str);
+	i = 0;
+	count = 0;
+	while (str[i++] != '\0')
 		if (str[i] == '\n')
 			count++;
-		i++;
-	}
-	printf("%s", str);
-	//treating_string(str, count);
+	if (count == 1)
+		ft_printf("%s", str);
+	else
+		//treating_string(str, count);
+	free(str);
 	return (stacka);
 }
 

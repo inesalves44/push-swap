@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 19:57:04 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/09 17:36:07 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,45 @@ void	free_list(t_dlist **head)
 	}
 }
 
-t_dlist	*reorder_stacks(t_dlist *stacka)
+t_dlist	**reorder_stacks(t_dlist **stacka)
 {
 	if (stacka)
 	{
-		while (stacka->prev)
-			stacka = stacka->prev;
+		while (&(*stacka)->prev)
+			stacka = &(*stacka)->prev;
 	}
 	return (stacka);
+}
+
+t_utils	creting_struck(t_dlist *stacka)
+{
+	t_utils	utils;
+
+	utils.size = ft_tdsize(stacka);
+	if (ft_tdsize(stacka) % 2 == 0)
+		utils.half = ft_tdsize(stacka) / 2;
+	else
+		utils.half = ft_tdsize(stacka) / 2 + 1;
+	if (ft_tdsize(stacka) % 4 == 0)
+		utils.quarter = ft_tdsize(stacka) / 4;
+	else
+		utils.quarter = ft_tdsize(stacka) / 4 + 1;
+	utils.quarter_first = 0;
+	utils.second = 0;
+	utils.max = get_max(stacka);
+	utils.min = get_min(stacka);
+	utils.posmin = find_number(stacka, utils.min);
+	utils.posmax = find_number(stacka, utils.max);
+	utils.high = 0;
+	utils.pos = 0;
+	utils.test = 'a';
+	utils.push_a = 'b';
+	utils.swap_a = 'a';
+	utils.rotate_a = 'a';
+	utils.rrotate_a = 'a';
+	utils.push_f = 'n';
+	utils.do_b = 0;
+	return (utils);
 }
 
 void	print_dblist(t_dlist *lst)
