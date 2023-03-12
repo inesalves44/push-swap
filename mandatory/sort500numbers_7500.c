@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/10 16:05:35 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/10 20:39:45 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,17 +142,6 @@ t_dlist	*do_stackb_2(t_dlist *stackb, t_dlist **stacka, t_utils *utils, char **s
 
 t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str)
 {
-	while (stacka->next)
-		stacka = stacka->next;
-	while (stacka->data > utils->half)
-	{
-		while (stacka->prev)
-			stacka = stacka->prev;
-		stacka = r_rotate(stacka, str);
-		*stackb = push_b(*stackb, &stacka, str);
-		while (stacka->next)
-			stacka = stacka->next;
-	}
 	while (stacka->prev)
 		stacka = stacka->prev;
 	stacka = separte_500a(stacka, stackb, utils, str);
@@ -164,33 +153,35 @@ t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char 
 	*stackb = do_stackb_2(*stackb, &stacka, utils, str);
 	while ((*stackb)->prev)
 		(*stackb) = (*stackb)->prev;
-	print_dblist2(stacka, *stackb);
+	utils->quarter = utils->half;
+	utils->quarter_first = utils->half - utils->half / 2;
+	stacka = separate500quarter(stacka, stackb, utils, str);
+	while (stacka->prev)
+		stacka = stacka->prev;
+	*stackb = do_stackb_2(*stackb, &stacka, utils, str);
+	while ((*stackb)->prev)
+		(*stackb) = (*stackb)->prev;
+	while (stacka->data != get_min(stacka))
+		stacka = rotate(stacka, str);
+	utils->quarter = utils->half + utils->half / 2;
+	utils->quarter_first = utils->half;
+	while ((*stackb))
+	{
+		if ((*stackb)->data > utils->quarter)
+			stacka = push(stacka, stackb, str);
+		else if (ft_tdsize(*stackb) > (utils->half / 2))
+			*stackb = rotate_b(*stackb, str);
+		else
+			break ;
+	}
+	*stackb = do_stackb(*stackb, &stacka, str, utils);
+	utils->quarter = ft_tdsize(stacka);
+	utils->quarter_first = utils->half + utils->half / 2;
+	stacka = separate500quarter(stacka, stackb, utils, str);
+	while (stacka->prev)
+		stacka = stacka->prev;
+	*stackb = do_stackb(*stackb, &stacka, str, utils);
+	while (checking_ifordered(stacka, 1) != 1)
+		stacka = rotate(stacka, str);
 	return(stacka);
 }
-
-/*t_dlist	*separte_500b(t_dlist *stackb, t_dlist **stacka, t_utils *utils, char **str)
-{
-	int	aux;
-
-	aux = 0;
-	if (stackb->data > utils->quarter)
-	{
-		*stacka = push(*stacka, &stackb, str);
-		aux = 1;
-	}
-	if (aux == 0)
-		stackb = rotate_b(stackb, str);
-	while (stacka)
-	{
-		if (stackb->data > utils->quarter)
-			break ;
-		else if (!stackb->next)
-			return (stackb);
-		stackb = stackb->next;
-	}
-	while (stackb->prev)
-		stackb = stackb->prev;
-	stackb = separte_500b(stackb, stacka, utils, str);
-	return (stackb);
-}*/
-

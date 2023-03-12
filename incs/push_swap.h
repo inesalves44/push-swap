@@ -6,16 +6,16 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/09 17:35:48 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:34:03 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "../ft_printf/incs/ft_printf.h"
-# include "../ft_printf/incs/get_next_line.h"
-# include "../ft_printf/incs/get_next_line_bonus.h"
+# include "../libft/incs/ft_printf.h"
+# include "../libft/incs/get_next_line.h"
+# include "../libft/incs/get_next_line_bonus.h"
 
 
 typedef struct s_dlist
@@ -38,14 +38,13 @@ typedef struct s_utils
 	int		min;
 	int		posmin;
 	int		min_b;
+	int		sig;
+	int		min_prev;
+	int		max_b;
+	int		med_b;
 	int		pos;
 	char	test;
 	int		do_b;
-	char	swap_a;
-	char	push_a;
-	char	rrotate_a;
-	char	rotate_a;
-	char	push_f;
 }		t_utils;
 
 /*movements: swap and rotate*/

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/09 17:36:07 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:34:07 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,12 @@ t_utils	creting_struck(t_dlist *stacka)
 	utils.posmax = find_number(stacka, utils.max);
 	utils.high = 0;
 	utils.pos = 0;
-	utils.test = 'a';
-	utils.push_a = 'b';
-	utils.swap_a = 'a';
-	utils.rotate_a = 'a';
-	utils.rrotate_a = 'a';
-	utils.push_f = 'n';
 	utils.do_b = 0;
+	utils.sig = 0;
+	utils.med_b = 0;
+	utils.min_b = 0;
+	utils.min_prev = 0;
+	utils.max_b = 0;
 	return (utils);
 }
 
@@ -129,12 +128,12 @@ void	print_dblist(t_dlist *lst)
 				break ;
 			lst = lst->next;
 		}
-		ft_printf("------- back list-------\n");
+		/*ft_printf("------- back list-------\n");
 		while (lst)
 		{
 			ft_printf("%d\n", lst->data);
 			lst = lst->prev;
-		}
+		}*/
 	}
 	else
 		ft_printf("NO LIST\n");

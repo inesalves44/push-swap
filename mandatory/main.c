@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/10 16:03:25 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/12 14:34:02 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	checking_ifordered(t_dlist *lst, int i)
 		while (lst->next)
 		{
 			if (lst->data > lst->next->data && i == 1)
+			{
+				ft_printf("%d\n", lst->data);
 				return (0);
+			}
 			else if (lst->data < lst->next->data && i == 2)
 				return (0);
 			lst = lst->next;

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:12:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/09 13:27:00 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:05:01 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ t_dlist	*sort5numbers(t_dlist *stacka, t_dlist **lstb, t_utils *utils, char **st
 		stacka = sort3numbers(stacka, utils, str);
 	else if (checking_ifordered(stacka, 1) == 0 && ft_tdsize(stacka) <= 2)
 		stacka = swap(stacka, str);
-	utils->swap_a = 'b';
 	if (stackb->data < stackb->next->data)
 		stackb = swap_b(stackb, str);
-	utils->push_f = 'f';
 	stacka = push_final(stacka, &stackb, str);
 	*lstb = stackb;
 	return (stacka);
