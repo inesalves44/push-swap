@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/11 20:34:07 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/14 20:33:19 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,20 @@ t_utils	creting_struck(t_dlist *stacka)
 	else
 		utils.quarter = ft_tdsize(stacka) / 4 + 1;
 	utils.quarter_first = 0;
-	utils.second = 0;
 	utils.max = get_max(stacka);
 	utils.min = get_min(stacka);
 	utils.posmin = find_number(stacka, utils.min);
 	utils.posmax = find_number(stacka, utils.max);
 	utils.high = 0;
 	utils.pos = 0;
-	utils.do_b = 0;
-	utils.sig = 0;
-	utils.med_b = 0;
 	utils.min_b = 0;
-	utils.min_prev = 0;
 	utils.max_b = 0;
+	utils.movements_a = 0;
+	utils.movements_b = 0;
+	utils.movements_t = 0;
+	utils.value_b = 0;
+	utils.value_a = 0;
+	utils.rotate_b = 'y';
 	return (utils);
 }
 

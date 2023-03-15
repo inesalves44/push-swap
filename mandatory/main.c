@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/12 14:34:02 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/14 23:41:15 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	checking_ifordered(t_dlist *lst, int i)
 		while (lst->next)
 		{
 			if (lst->data > lst->next->data && i == 1)
-			{
-				ft_printf("%d\n", lst->data);
 				return (0);
-			}
 			else if (lst->data < lst->next->data && i == 2)
 				return (0);
 			lst = lst->next;
@@ -36,6 +33,8 @@ int	find_number(t_dlist *stack, int number)
 	int	i;
 
 	i = 1;
+	while (stack->prev)
+		stack = stack->prev;
 	while (stack)
 	{
 		if (stack->data == number)
@@ -136,7 +135,7 @@ t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 	if (count == 1)
 		ft_printf("%s", str);
 	else
-		//treating_string(str, count);
+		treating_string(str, count);
 	free(str);
 	return (stacka);
 }

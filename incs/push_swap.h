@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/11 20:34:03 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/14 21:26:39 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,22 @@ typedef struct s_utils
 	int		half;
 	int		quarter;
 	int		quarter_first;
-	int		second;
 	int		high;
 	int		max;
 	int		posmax;
 	int		min;
 	int		posmin;
 	int		min_b;
-	int		sig;
-	int		min_prev;
 	int		max_b;
-	int		med_b;
 	int		pos;
-	char	test;
-	int		do_b;
-}		t_utils;
+	int		movements_a;
+	int		movements_b;
+	int		movements_t;
+	int		value_a;
+	int		value_b;
+	char	rotate_b;
+	char	rotate_a;
+}			t_utils;
 
 /*movements: swap and rotate*/
 t_dlist	*rotate(t_dlist *lst, char **str);
@@ -101,6 +102,12 @@ t_dlist	*sort100numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char 
 
 /*order 500*/
 t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str);
+
+/*order500 part2*/
+t_dlist	*separte_500a(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str);
+t_dlist	*separate500quarter(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str);
+int	get_pos_2(char *s, t_dlist *stackb, int quarter);
+t_dlist	*do_stackb_2(t_dlist *stackb, t_dlist **stacka, t_utils *utils, char **str);
 
 /*main*/
 int		checking_ifordered(t_dlist *stacka, int i);

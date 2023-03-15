@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 22:05:00 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/10 11:40:11 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/14 11:42:57 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,11 +98,10 @@ t_dlist	*do_stackb(t_dlist *stackb, t_dlist **stacka, char **str, t_utils *utils
 	}
 	utils->min_b = get_min(stackb);
 	utils->pos = get_pos(&s, stackb);
-	utils->test = s;
 	i = 0;
 	while (i < utils->pos)
 	{
-		if (utils->test == 'f')
+		if (s == 'f')
 			stackb = rotate_b(stackb, str);
 		else
 			stackb = r_rotate_b(stackb, str);
