@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/14 23:41:19 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/15 13:35:27 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,46 +30,41 @@ int	get_values(int data, t_dlist **stackb)
 	return (a);
 }
 
-t_utils	*check_movements(int data, t_dlist **stackb, t_utils *utils)
+t_utils	*check_movements(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
-	if (data > get_max(*stackb) || data < get_min(*stackb))
-	{
-		utils->value_b = get_max(*stackb);
-		utils->max_b = find_number(*stackb, get_max(*stackb));
-		if (utils->max_b < ft_tdsize(*stackb) / 2)
-		{
-			utils->movements_b = utils->max_b;
-			utils->rotate_b = 'y';
-		}
-		else
-		{
-			if (utils->max_b == ft_tdsize(*stackb))
-				utils->movements_b = 1;
-			else	
-				utils->movements_b = (ft_tdsize(*stackb) - utils->max_b);
-			if (ft_tdsize(*stackb) == 2)
-				utils->rotate_b = 'y';
-			utils->rotate_b = 'n';
-		}
-	}
+	int	a;
+	int	b;
+	int	total_r;
+	int	total_rr;
+	int	total_other;
+
+	a = 0;
+	b = 0;
+	while (stacka->prev)
+		stacka = stacka->prev;
+	a = find_number(stacka, data) - 1;
+	b = find_number(*stackb, get_values(data, *stackb)) - 1;
+	if (b >= a)
+		total_r = b;
 	else
-	{
-		utils->value_b = get_values(data, stackb);
-		utils->pos = find_number(*stackb, utils->value_b);
-		if (utils->pos < ft_tdsize(*stackb) / 2)
-		{
-			utils->movements_b = utils->pos;
-			utils->rotate_b = 'y';
-		}
-		else
-		{
-			if (utils->pos == ft_tdsize(*stackb))
-				utils->movements_b = ft_tdsize(*stackb);
-			else
-				utils->movements_b = (ft_tdsize(*stackb) - utils->pos);
-			utils->rotate_b = 'n';
-		}
-	}
+		total_r = a;
+	a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
+	b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, *stackb)) + 1;
+	if (b >= a)
+		total_rr = b;
+	else
+		total_rr = a;
+	if (find_number(stacka, data) < ft_tdsize(stacka) / 2)
+		a = find_number(stacka, data) - 1;
+	else
+		a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
+	if (find_number(*stackb, get_values(data, *stackb) < ft_tdsize(*stackb) / 2))
+		b = find_number(*stackb, get_values(data, *stackb)) - 1;
+	else
+		b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, *stackb)) + 1;
+	total_other = a + b; 
+	while (stacka->data != data)
+		stacka = stacka->next;
 	return (utils);
 }
 
@@ -78,24 +73,10 @@ t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 	utils->movements_t = 10000;
 	while (stacka)
 	{
-		if (stacka->data > utils->half)
+		utils = check_movements(stacka->data, stacka, stackb, utils);
+		if ((utils->movements_t) < utils->movements_t_final)
 		{
-			utils->movements_a = find_number(stacka, stacka->data);
-			if (utils->movements_a > ft_tdsize(stacka) / 2)
-				utils->movements_a = ft_tdsize(stacka) - utils->movements_a;
-			utils = check_movements(stacka->data, stackb, utils);
-			if ((utils->movements_a + utils->movements_b) < utils->movements_t)
-			{
-				utils->movements_t = utils->movements_a + utils->movements_b;
-				utils->value_a = stacka->data;
-				utils->pos = find_number(stacka, stacka->data);
-				utils->rotate_a = 'y';
-				if (utils->pos > ft_tdsize(stacka) / 2)
-				{
-					utils->pos = ft_tdsize(stacka) - utils->pos;
-					utils->rotate_a = 'n';
-				}
-			}
+			
 		}
 		if (!stacka->next)
 			break ;
@@ -109,21 +90,9 @@ t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 
 t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str)
 {
-	while (stacka->next)
-		stacka = stacka->next;
-	while (stacka->data > utils->half)
-	{
-		while (stacka->prev)
-			stacka = stacka->prev;
-		stacka = r_rotate(stacka, str);
-		*stackb = push_b(*stackb, &stacka, str);
-		while (stacka->next)
-			stacka = stacka->next;
-	}
-	while (stacka->prev)
-		stacka = stacka->prev;
-	stacka = separte_500a(stacka, stackb, utils, str);
-	while (ft_tdsize(*stackb) < 250)
+	*stackb = push_b(*stackb, &stacka, str);
+	*stackb = push_b(*stackb, &stacka, str);
+	while (ft_tdsize(stacka) > 470)
 	{
 		utils = instructions(stacka, stackb, utils);
 		if (utils->rotate_a == 'y' && utils->rotate_b == 'y')
@@ -156,10 +125,23 @@ t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char 
 				*stackb = r_rotate_b(*stackb, str);
 		*stackb = push_b(*stackb, &stacka, str);
 	}
-	//print_dblist2(stacka, *stackb);
+	print_dblist2(stacka, *stackb);
+	print_dblist(*stackb);
 	return(stacka);
 }
-
+/*while (stacka->next)
+		stacka = stacka->next;
+	while (stacka->data > utils->half)
+	{
+		while (stacka->prev)
+			stacka = stacka->prev;
+		stacka = r_rotate(stacka, str);
+		*stackb = push_b(*stackb, &stacka, str);
+		while (stacka->next)
+			stacka = stacka->next;
+	}
+	while (stacka->prev)
+		stacka = stacka->prev;*/
 /*while (stacka->next)
 		stacka = stacka->next;
 	while (stacka->data <= utils->quarter)

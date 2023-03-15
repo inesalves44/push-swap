@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:04:13 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/14 20:07:20 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/15 11:43:32 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_dlist	*separte_500a(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **str)
 {
-	if (ft_tdsize(*stackb) == 2)
+	if (ft_tdsize(*stackb) >= 2)
 		return (stacka);
-	if (stacka->data > utils->half)
+	if (stacka->data >= utils->half)
 	{
 		*stackb = push_b(*stackb, &stacka, str);
 		if ((*stackb)->next)
@@ -33,7 +33,7 @@ t_dlist	*separte_500a(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **
 		{
 			while (stacka->prev)
 				stacka = stacka->prev;
-			return (stacka);
+			return (stacka); 
 		}
 		stacka = stacka->next;
 	}

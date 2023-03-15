@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/14 20:33:19 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:57:51 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ t_dlist	**reorder_stacks(t_dlist **stacka)
 {
 	if (stacka)
 	{
-		while (&(*stacka)->prev)
-			stacka = &(*stacka)->prev;
+		while ((*stacka)->prev)
+			*stacka = (*stacka)->prev;
 	}
 	return (stacka);
 }
@@ -111,6 +111,7 @@ t_utils	creting_struck(t_dlist *stacka)
 	utils.movements_a = 0;
 	utils.movements_b = 0;
 	utils.movements_t = 0;
+	utils.movements_t_final = 0;
 	utils.value_b = 0;
 	utils.value_a = 0;
 	utils.rotate_b = 'y';

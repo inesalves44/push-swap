@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/14 21:26:39 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/15 12:57:32 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,10 @@ typedef struct s_utils
 	int		movements_a;
 	int		movements_b;
 	int		movements_t;
+	int		movements_t_final;
 	int		value_a;
 	int		value_b;
+	int		value_b_prev;
 	char	rotate_b;
 	char	rotate_a;
 }			t_utils;
