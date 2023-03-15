@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/15 13:35:27 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/15 17:23:27 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ int	get_values(int data, t_dlist **stackb)
 	int	a;
 
 	a = 0;
+	if (data > get_max(*stackb) || data < get_min(*stackb))
+	{
+		a = get_max(*stackb);
+		return(a);
+	}
 	while (*stackb)
 	{
 		if ((*stackb)->data < data && (*stackb)->data > a)
@@ -43,26 +48,52 @@ t_utils	*check_movements(int data, t_dlist *stacka, t_dlist **stackb, t_utils *u
 	while (stacka->prev)
 		stacka = stacka->prev;
 	a = find_number(stacka, data) - 1;
-	b = find_number(*stackb, get_values(data, *stackb)) - 1;
+	b = find_number(*stackb, get_values(data, stackb)) - 1;
 	if (b >= a)
 		total_r = b;
 	else
 		total_r = a;
 	a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
-	b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, *stackb)) + 1;
+	b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, stackb)) + 1;
 	if (b >= a)
 		total_rr = b;
 	else
 		total_rr = a;
 	if (find_number(stacka, data) < ft_tdsize(stacka) / 2)
+	{
 		a = find_number(stacka, data) - 1;
+		utils->rotate_a = 'y';
+	}
 	else
+	{
 		a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
-	if (find_number(*stackb, get_values(data, *stackb) < ft_tdsize(*stackb) / 2))
-		b = find_number(*stackb, get_values(data, *stackb)) - 1;
+		utils->rotate_a = 'n';
+	}
+	if (find_number(*stackb, get_values(data, stackb) < ft_tdsize(*stackb) / 2))
+	{
+		b = find_number(*stackb, get_values(data, stackb)) - 1;
+		utils->rotate_b = 'y';
+	}
 	else
-		b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, *stackb)) + 1;
-	total_other = a + b; 
+	{
+		b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, stackb)) + 1;
+		utils->rotate_b = 'n';
+	}
+	total_other = a + b;
+	if (total_r < total_rr  && total_r < total_other)
+	{
+		utils->rotate_a = 'y';
+		utils->rotate_b = 'y';
+		utils->movements_t = total_r;
+	}
+	else if (total_rr < total_r  && total_rr < total_other)
+	{
+		utils->rotate_a = 'n';
+		utils->rotate_b = 'n';
+		utils->movements_t = total_rr;
+	}
+	else
+		utils->movements_t = total_other;
 	while (stacka->data != data)
 		stacka = stacka->next;
 	return (utils);
@@ -76,7 +107,9 @@ t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		utils = check_movements(stacka->data, stacka, stackb, utils);
 		if ((utils->movements_t) < utils->movements_t_final)
 		{
-			
+			utils->movements_t_final = utils->movements_t;
+			utils->value_a = stacka->data;
+			utils->value_b = get_values(stacka->data, stackb);
 		}
 		if (!stacka->next)
 			break ;
