@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/15 12:57:32 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:26:09 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ typedef struct s_utils
 	int		value_b_prev;
 	char	rotate_b;
 	char	rotate_a;
+	char	final_rotate_a;
+	char	final_rotate_b;
 }			t_utils;
 
 /*movements: swap and rotate*/

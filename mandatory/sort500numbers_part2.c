@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 15:04:13 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/15 11:43:32 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/16 11:34:08 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_dlist	*separte_500a(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char **
 		{
 			while (stacka->prev)
 				stacka = stacka->prev;
-			return (stacka); 
+			return (stacka);
 		}
 		stacka = stacka->next;
 	}
