@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/16 11:34:11 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:04:50 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 	if (count == 1)
 		ft_printf("%s", str);
 	else
-		//treating_string(str, count);
+		treating_string(str, count);
 	free(str);
 	return (stacka);
 }

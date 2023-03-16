@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/16 12:52:55 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/16 13:04:41 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ t_utils	*instructions_a(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		if ((utils->movements_t) < utils->movements_t_final)
 		{
 			utils->movements_t_final = utils->movements_t;
-			utils->value_a = get_values((*stackb)->data, &stacka);
+			utils->value_a = get_values_a((*stackb)->data, stacka);
 			utils->value_b = (*stackb)->data;
 			utils->final_rotate_a = utils->rotate_a;
 			utils->final_rotate_b = utils->rotate_b;
@@ -280,10 +280,8 @@ t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char 
 	*stackb = push_b(*stackb, &stacka, str);
 	stacka = test(stacka, stackb, utils, str);
 	stacka = sort3numbers(stacka, utils, str);
-	print_dblist2(stacka, *stackb);
-	while (ft_tdsize(*stackb) > 493)
+	while (ft_tdsize(*stackb) > 1)
 	{
-		print_dblist(stacka);
 		utils = instructions_a(stacka, stackb, utils);
 		if (utils->final_rotate_a == 'y' && utils->final_rotate_b == 'y')
 		{
@@ -315,7 +313,12 @@ t_dlist	*sort500numbers(t_dlist *stacka, t_dlist **stackb, t_utils *utils, char 
 				*stackb = r_rotate_b(*stackb, str);
 		stacka = push(stacka, stackb, str);
 	}
-	print_dblist(stacka);
-	//print_dblist2(stacka, *stackb);
+	stacka = push_final(stacka, stackb, str);
+	if (find_number(stacka, 1) <= ft_tdsize(stacka) / 2)
+		while (checking_ifordered(stacka, 1) != 1)
+			stacka = rotate(stacka, str);
+	else
+		while (checking_ifordered(stacka, 1) != 1)
+			stacka = r_rotate(stacka, str);
 	return(stacka);
 }
