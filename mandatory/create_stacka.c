@@ -6,22 +6,11 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/21 14:05:34 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/02 22:10:08 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/16 17:23:28 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
-
-t_dlist	*stack_creation_ind(t_dlist *head)
-{
-	t_dlist	*lst_temp;
-
-	lst_temp = NULL;
-	lst_temp = ft_createnode(1);
-	lst_temp->prev = head;
-	head->next = lst_temp;
-	return (lst_temp);
-}
 
 t_dlist	*aux_stacka(t_dlist *stacka, int i, int j)
 {
@@ -80,7 +69,8 @@ t_dlist	*create_stack(t_dlist *lst)
 	stacka = ft_createnode(1);
 	while (i < ft_tdsize(lst))
 	{
-		stacka->next = stack_creation_ind(stacka);
+		stacka->next = ft_createnode(1);
+		stacka->next->prev = stacka;
 		stacka = stacka->next;
 		i++;
 	}

@@ -20,6 +20,9 @@
 # include <strings.h>
 # include <unistd.h>
 
+int		is_signal(char c);
+int		is_number(char c);
+int		return_s(char c);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
