@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/18 14:19:56 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:18:47 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:05:42 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_utils	creting_struck(t_dlist *stacka)
 	utils.rotate_a = 'y';
 	utils.rotate_total = 'a';
 	utils.push = 'b';
+	utils.part = 'f';
+	utils.moves = '1';
 	return (utils);
 }
 

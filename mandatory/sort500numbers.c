@@ -6,25 +6,19 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:33:06 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/18 21:43:20 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
 
-int	get_values(int data, t_dlist **stackb)
+int	get_values2(int a, int data, t_dlist **stackb, t_utils *utils)
 {
-	int	a;
-
-	a = 0;
-	if (data > get_max(*stackb) || data < get_min(*stackb))
-	{
-		a = get_max(*stackb);
-		return(a);
-	}
 	while (*stackb)
 	{
-		if ((*stackb)->data < data && (*stackb)->data > a)
+		if ((*stackb)->data < data && (*stackb)->data > a && utils->part == 'f')
+			a = (*stackb)->data;
+		else if ((*stackb)->data > data && (*stackb)->data < a && utils->part == 's')
 			a = (*stackb)->data;
 		if (!(*stackb)->next)
 			break ;
@@ -35,289 +29,96 @@ int	get_values(int data, t_dlist **stackb)
 	return (a);
 }
 
-t_utils	*check_movements(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils)
-{
-	int	a;
-	int	b;
-	int	total_r;
-	int	total_rr;
-	int	total_other;
-
-	a = 0;
-	b = 0;
-	while (stacka->prev)
-		stacka = stacka->prev;
-	a = find_number(stacka, data) - 1;
-	b = find_number(*stackb, get_values(data, stackb)) - 1;
-	if (b >= a)
-		total_r = b;
-	else
-		total_r = a;
-	a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
-	b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, stackb)) + 1;
-	if (b >= a)
-		total_rr = b;
-	else
-		total_rr = a;
-	if (find_number(stacka, data) < ft_tdsize(stacka) / 2)
-	{
-		a = find_number(stacka, data) - 1;
-		utils->rotate_a = 'y';
-	}
-	else
-	{
-		a = ft_tdsize(stacka) - find_number(stacka, data) + 1;
-		utils->rotate_a = 'n';
-	}
-	if (find_number(*stackb, get_values(data, stackb) < ft_tdsize(*stackb) / 2))
-	{
-		b = find_number(*stackb, get_values(data, stackb)) - 1;
-		utils->rotate_b = 'y';
-	}
-	else
-	{
-		b = ft_tdsize(*stackb) - find_number(*stackb, get_values(data, stackb)) + 1;
-		utils->rotate_b = 'n';
-	}
-	total_other = a + b;
-	if (total_r <= total_rr  && total_r <= total_other)
-	{
-		utils->rotate_a = 'y';
-		utils->rotate_b = 'y';
-		utils->movements_t = total_r;
-	}
-	else if (total_rr < total_r  && total_rr < total_other)
-	{
-		utils->rotate_a = 'n';
-		utils->rotate_b = 'n';
-		utils->movements_t = total_rr;
-	}
-	else
-		utils->movements_t = total_other;
-	while (stacka->data != data)
-		stacka = stacka->next;
-	return (utils);
-}
-
-t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
-{
-	while (stacka->next)
-		stacka = stacka->next;
-	utils = check_movements(stacka->data, stacka, stackb, utils);
-	utils->movements_t_final = utils->movements_t;
-	while (stacka->prev)
-		stacka = stacka->prev;
-	while (stacka)
-	{
-		utils = check_movements(stacka->data, stacka, stackb, utils);
-		if ((utils->movements_t) < utils->movements_t_final)
-		{
-			utils->movements_t_final = utils->movements_t;
-			utils->value_a = stacka->data;
-			utils->value_b = get_values(stacka->data, stackb);
-			utils->final_rotate_a = utils->rotate_a;
-			utils->final_rotate_b = utils->rotate_b;
-		}
-		if (utils->movements_t_final <= 2)
-			break ;
-		if (!stacka->next)
-			break ;
-		stacka = stacka->next;
-	}
-	while (stacka->prev)
-		stacka = stacka->prev;
-	return (utils);
-}
-
-int	get_values_a(int data, t_dlist *stacka)
+int	get_values(int data, t_dlist **stackb, t_utils *utils)
 {
 	int	a;
 
-	a = 700;
-	if (data > get_max(stacka) || data < get_min(stacka))
+	if (utils->part == 'f')
+		a = 0;
+	else
+		a = 700;
+	if ((data > get_max(*stackb) || data < get_min(*stackb)))
 	{
-		a = get_min(stacka);
+		if (utils->part == 'f')
+			a = get_max(*stackb);
+		else if (utils->part == 's')
+			a = get_min(*stackb);
 		return(a);
 	}
-	while (stacka)
-	{
-		if (stacka->data > data && stacka->data < a)
-			a = stacka->data;
-		if (!stacka->next)
-			break ;
-		stacka = stacka->next;
-	}
-	while (stacka->prev)
-		stacka = stacka->prev;
+	a = get_values2(a, data, stackb, utils);
 	return (a);
 }
 
-t_utils	*check_movements_a(int data, t_dlist **stackb, t_dlist *stacka, t_utils *utils)
+t_dlist	*test_part2(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
-	int	a;
-	int	b;
-	int	total_r;
-	int	total_rr;
-	int	total_other;
-
-	a = 0;
-	b = 0;
-	while ((*stackb)->prev)
-		*stackb = (*stackb)->prev;
-	b = find_number(*stackb, data) - 1;
-	a = find_number(stacka, get_values_a(data, stacka)) - 1;
-	if (b >= a)
-		total_r = b;
+	if (utils->part == 'f')
+		utils->rotate_total = 'a';
 	else
-		total_r = a;
-	b = ft_tdsize(*stackb) - find_number(*stackb, data) + 1;
-	a = ft_tdsize(stacka) - find_number(stacka, get_values_a(data, stacka)) + 1;
-	if (b >= a)
-		total_rr = b;
+		utils->rotate_total = 'b';
+	while (stacka->data != utils->value_a && utils->final_rotate_a == 'y')
+		stacka = rotate(stacka, utils);
+	while (stacka->data != utils->value_a && utils->final_rotate_a == 'n')
+		stacka = r_rotate(stacka, utils);
+	if (utils->part == 'f')
+		utils->rotate_total = 'b';
 	else
-		total_rr = a;
-	if (find_number(*stackb, data) < ft_tdsize(*stackb) / 2)
-	{
-		b = find_number(*stackb, data) - 1;
-		utils->rotate_b = 'y';
-	}
-	else
-	{
-		b = ft_tdsize(*stackb) - find_number(*stackb, data) + 1;
-		utils->rotate_b = 'n';
-	}
-	if (find_number(stacka, get_values_a(data, stacka) < ft_tdsize(stacka) / 2))
-	{
-		a = find_number(stacka, get_values_a(data, stacka)) - 1;
-		utils->rotate_a = 'y';
-	}
-	else
-	{
-		a = ft_tdsize(stacka) - find_number(stacka, get_values_a(data, stacka)) + 1;
-		utils->rotate_a = 'n';
-	}
-	total_other = a + b;
-	if (total_r <= total_rr  && total_r <= total_other)
-	{
-		utils->rotate_a = 'y';
-		utils->rotate_b = 'y';
-		utils->movements_t = total_r;
-	}
-	else if (total_rr < total_r  && total_rr < total_other)
-	{
-		utils->rotate_a = 'n';
-		utils->rotate_b = 'n';
-		utils->movements_t = total_rr;
-	}
-	else
-		utils->movements_t = total_other;
-	while ((*stackb)->data != data)
-		*stackb = (*stackb)->next;
-	return (utils);
-}
-
-t_utils	*instructions_a(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
-{
-	utils->movements_t_final = 10000;
-	while (*stackb)
-	{
-		utils = check_movements_a((*stackb)->data, stackb, stacka, utils);
-		if ((utils->movements_t) < utils->movements_t_final)
-		{
-			utils->movements_t_final = utils->movements_t;
-			utils->value_a = get_values_a((*stackb)->data, stacka);
-			utils->value_b = (*stackb)->data;
-			utils->final_rotate_a = utils->rotate_a;
-			utils->final_rotate_b = utils->rotate_b;
-		}
-		if (utils->movements_t_final <= 2)
-			break ;
-		if (!stacka->next)
-			break ;
-		stacka = stacka->next;
-	}
-	while (stacka->prev)
-		stacka = stacka->prev;
-	return (utils);
+		utils->rotate_total = 'a';
+	while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'y')
+		*stackb = rotate(*stackb, utils);
+	while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'n')
+		*stackb = r_rotate(*stackb, utils);
+	*stackb = push(*stackb, &stacka, utils);
+	return (stacka);
 }
 
 t_dlist	*test(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
-	while (ft_tdsize(stacka) > 3)
+	utils = instructions(stacka, stackb, utils);
+	if (utils->final_rotate_a == 'y' && utils->final_rotate_b == 'y')
 	{
-		utils = instructions(stacka, stackb, utils);
-		if (utils->final_rotate_a == 'y' && utils->final_rotate_b == 'y')
+		while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
 		{
-			while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
-			{
-				utils->rotate_total = 'y';
-				stacka = rotate(stacka, utils);
-				*stackb = rotate(*stackb, utils);
-				ft_printf("rr\n");
-			}
-		}
-		else if (utils->final_rotate_a == 'n' && utils->final_rotate_b == 'n')
-		{
-			while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
-			{
-				utils->rotate_total = 'y';
-				stacka = r_rotate(stacka, utils);
-				*stackb = r_rotate(*stackb, utils);
-				ft_printf("rrr\n");
-			}
-		}
-		utils->rotate_total = 'a';
-		while (stacka->data != utils->value_a && utils->final_rotate_a == 'y')
+			utils->rotate_total = 'y';
 			stacka = rotate(stacka, utils);
-		while (stacka->data != utils->value_a && utils->final_rotate_a == 'n')
-			stacka = r_rotate(stacka, utils);
-		utils->rotate_total = 'b';
-		while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'y')
 			*stackb = rotate(*stackb, utils);
-		while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'n')
-			*stackb = r_rotate(*stackb, utils);
-		*stackb = push(*stackb, &stacka, utils);
+			ft_printf("rr\n");
+		}
 	}
+	else if (utils->final_rotate_a == 'n' && utils->final_rotate_b == 'n')
+	{
+		while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
+		{
+			utils->rotate_total = 'y';
+			stacka = r_rotate(stacka, utils);
+			*stackb = r_rotate(*stackb, utils);
+			ft_printf("rrr\n");
+		}
+	}
+	stacka = test_part2(stacka, stackb, utils);
+	if (ft_tdsize(stacka) > 3)
+		stacka = test(stacka, stackb, utils);
 	return(stacka);
 }
 
-t_dlist	*test_a(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
+t_dlist	*last_three(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
-	while (ft_tdsize(*stackb) > 1)
-	{
-		utils = instructions_a(stacka, stackb, utils);
-		if (utils->final_rotate_a == 'y' && utils->final_rotate_b == 'y')
-		{
-			while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
-			{
-				utils->rotate_total = 'y';
-				stacka = rotate(stacka, utils);
-				*stackb = rotate(*stackb, utils);
-				ft_printf("rr\n");
-			}
-		}
-		else if (utils->final_rotate_a == 'n' && utils->final_rotate_b == 'n')
-		{
-			while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
-			{
-				utils->rotate_total = 'y';
-				stacka = r_rotate(stacka, utils);
-				*stackb = r_rotate(*stackb, utils);
-				ft_printf("rrr\n");
-			}
-		}
-		utils->rotate_total = 'a';
-		while (stacka->data != utils->value_a && utils->final_rotate_a == 'y')
-			stacka = rotate(stacka, utils);
-		while (stacka->data != utils->value_a && utils->final_rotate_a == 'n')
+	utils->rotate_total = 'a';
+	utils->value_b = (*stackb)->data;
+	utils->value_a = get_values((*stackb)->data, &stacka, utils);
+	if (find_number(stacka, utils->value_a) > ft_tdsize(stacka) / 2)
+		while (stacka->data != utils->value_a)
 			stacka = r_rotate(stacka, utils);
-		utils->rotate_total = 'b';
-		while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'y')
-			*stackb = rotate(*stackb, utils);
-		while ((*stackb)->data != utils->value_b && utils->final_rotate_b == 'n')
-			*stackb = r_rotate(*stackb, utils);
+	else
+		while (stacka->data != utils->value_a)
+			stacka = rotate(stacka, utils);
+	if (ft_tdsize(*stackb) > 1)
 		stacka = push(stacka, stackb, utils);
+	else
+	{
+		stacka = push_final(stacka, stackb, utils);
+		return (stacka);
 	}
+	stacka = last_three(stacka, stackb, utils);
 	return (stacka);
 }
 
@@ -330,21 +131,12 @@ t_dlist	*bigalgorithm(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 	if (checking_ifordered(stacka, 1) != 1)
 		stacka = sort3numbers(stacka, utils);
 	utils->push = 'a';
-	stacka = test_a(stacka, stackb, utils);
-	utils = check_movements_a((*stackb)->data, stackb, stacka, utils);
-	utils->final_rotate_a = utils->rotate_a;
-	utils->final_rotate_b = utils->rotate_b;
+	utils->part = 's';
+	*stackb = test(*stackb, &stacka, utils);
+	if (checking_ifordered(*stackb, 2) != 1)
+		stacka = sort3numbers_rev(*stackb, utils);
+	stacka = last_three(stacka, stackb, utils);
 	utils->rotate_total ='a';
-	if (utils->final_rotate_a == 'y' && (*stackb)->data < get_max(stacka))
-		while (stacka->data != (*stackb)->data + 1)
-			stacka = rotate(stacka, utils);
-	else if (utils->final_rotate_a == 'n' && (*stackb)->data < get_max(stacka))
-		while (stacka->data != (*stackb)->data + 1)
-			stacka = r_rotate(stacka, utils);
-	else if ((*stackb)->data > get_max(stacka))
-		while (stacka->data != get_min(stacka))
-			stacka = rotate(stacka, utils);
-	stacka = push_final(stacka, stackb, utils);
 	if (find_number(stacka, 1) <= ft_tdsize(stacka) / 2)
 		while (checking_ifordered(stacka, 1) != 1)
 			stacka = rotate(stacka, utils);

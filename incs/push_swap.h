@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:31:25 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/18 19:31:10 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct s_utils
 	char	final_rotate_a;
 	char	final_rotate_b;
 	char	rotate_total;
+	char	part;
+	char	moves;
 }			t_utils;
 
 /*folder: List - Utils and others of doubly linked list*/
@@ -87,6 +89,7 @@ t_dlist	*create_stack(t_dlist *lst);
 t_dlist	*sort3numbers(t_dlist *stacka, t_utils *utils);
 t_dlist	*sort5numbers(t_dlist *stacka, t_dlist **lstb, t_utils *utils);
 t_dlist	*check_top(t_dlist *lsta, t_dlist **stackb, t_utils *utils);
+t_dlist	*sort3numbers_rev(t_dlist *stacka, t_utils *utils);
 
 /*utils*/
 int		get_max(t_dlist *lst);
@@ -97,6 +100,13 @@ t_utils	creting_struck(t_dlist *stacka);
 
 /*order 500*/
 t_dlist	*bigalgorithm(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+int	get_values(int data, t_dlist **stackb, t_utils *utils);
+/*log_utils*/
+int	total_moves(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+int	total_moves_other(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+t_utils *final_check(t_utils *utils);
+t_utils	*check_movements(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
 
 /*main*/
 int		checking_ifordered(t_dlist *stacka, int i);

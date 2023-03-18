@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/22 11:12:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:17:52 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/18 14:38:34 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,18 @@ t_dlist	*sort3numbers(t_dlist *stacka, t_utils *utils)
 	else if (stacka->next->data == get_max(stacka))
 		stacka = r_rotate(stacka, utils);
 	if (stacka->data > stacka->next->data)
+		stacka = swap(stacka, utils);
+	return (stacka);
+}
+
+t_dlist	*sort3numbers_rev(t_dlist *stacka, t_utils *utils)
+{
+	utils->rotate_total = 'b';
+	if (stacka->data == get_min(stacka))
+		stacka = rotate(stacka, utils);
+	else if (stacka->next->data == get_min(stacka))
+		stacka = r_rotate(stacka, utils);
+	if (stacka->data < stacka->next->data)
 		stacka = swap(stacka, utils);
 	return (stacka);
 }

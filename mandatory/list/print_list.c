@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:04:33 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:15:53 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/18 15:49:53 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	print_dblist(t_dlist *lst)
 }
 
 /* Second Print function!!*/
-/*void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
+void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
 {
 	if (lst1 || lst2)
 	{
@@ -69,4 +69,3 @@ void	print_dblist(t_dlist *lst)
 		}
 	}
 }
-*/
