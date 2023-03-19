@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 13:23:18 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:36:31 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,10 +111,10 @@ t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
 /*algo_utils*/
 int		get_values(int data, t_dlist **stackb, t_utils *utils);
 int		get_values2(int a, int data, t_dlist **stackb, t_utils *utils);
-int		checking_ifordered(t_dlist *stacka, int i);
-int		find_number(t_dlist *stack, int number);
 
 /*main*/
 t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb);
+int		checking_ifordered(t_dlist *stacka, int i);
+int		find_number(t_dlist *stack, int number);
 
 #endif

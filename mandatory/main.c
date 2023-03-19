@@ -6,11 +6,46 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 13:27:01 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:37:01 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
+
+int	checking_ifordered(t_dlist *lst, int i)
+{
+	if (lst)
+	{
+		while (lst->next)
+		{
+			if (lst->data > lst->next->data && i == 1)
+				return (0);
+			else if (lst->data < lst->next->data && i == 2)
+				return (0);
+			lst = lst->next;
+		}	
+	}
+	return (1);
+}
+
+int	find_number(t_dlist *stack, int number)
+{
+	int	i;
+
+	i = 1;
+	while (stack->prev)
+		stack = stack->prev;
+	while (stack)
+	{
+		if (stack->data == number)
+			return (i);
+		else if (!stack->next)
+			break ;
+		stack = stack->next;
+		i++;
+	}
+	return (0);
+}
 
 t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 {

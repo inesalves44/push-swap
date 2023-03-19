@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:45:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/16 16:22:45 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:55:21 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_dlist	*delete_from_front(t_dlist *lsta)
 	else
 		lsta = lsta->next;
 	temp->next = NULL;
-	lsta->prev = NULL;
 	free(temp);
+	if (!lsta)
+		return (NULL);
 	while (lsta->prev)
 		lsta = lsta->prev;
 	return (lsta);

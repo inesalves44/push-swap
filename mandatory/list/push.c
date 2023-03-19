@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:16:55 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 17:02:00 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 t_dlist	*push(t_dlist *lsti, t_dlist **lstd, t_utils *utils)
 {
+	if (!lstd)
+		return (lsti);
 	lsti = add_to_front((*lstd)->data, lsti);
 	*lstd = delete_from_front(*lstd);
 	if (utils->push == 'a')
 		ft_printf("pa\n");
-	else
+	else if (utils->push == 'b')
 		ft_printf("pb\n");
 	return (lsti);
 }

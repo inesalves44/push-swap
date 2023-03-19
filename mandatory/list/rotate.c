@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 23:58:30 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:16:35 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 16:59:19 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ t_dlist	*rotate(t_dlist *lst, t_utils *utils)
 	int		temp;
 
 	temp = lst->data;
+	if (ft_tdsize(lst) < 2)
+		return (lst);
 	while (lst)
 	{
 		if (lst->next)
@@ -44,6 +46,8 @@ t_dlist	*r_rotate(t_dlist *lst, t_utils *utils)
 	while (lst->next)
 		lst = lst->next;
 	temp = lst->data;
+	if (ft_tdsize(lst) < 2)
+		return (lst);
 	while (lst)
 	{
 		if (lst->prev)
