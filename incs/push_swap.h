@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/14 17:18:17 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/18 19:31:10 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 13:23:18 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include "../libft/incs/ft_printf.h"
 # include "../libft/incs/get_next_line.h"
 # include "../libft/incs/get_next_line_bonus.h"
-# include <limits.h>
 
 typedef struct s_dlist
 {
@@ -100,16 +99,22 @@ t_utils	creting_struck(t_dlist *stacka);
 
 /*order 500*/
 t_dlist	*bigalgorithm(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
-int	get_values(int data, t_dlist **stackb, t_utils *utils);
-/*log_utils*/
-int	total_moves(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
-int	total_moves_other(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
-t_utils *final_check(t_utils *utils);
-t_utils	*check_movements(int data, t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+t_dlist	*test_part2(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+t_dlist	*test(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+t_dlist	*last_three(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
+/*algo_utils2*/
+int		total_moves(int data, t_dlist *sa, t_dlist **sb, t_utils *u);
+int		total_moves_other(int data, t_dlist *sa, t_dlist **sb, t_utils *u);
+t_utils	*final_check(t_utils *utils);
+t_utils	*check_movements(int data, t_dlist *sa, t_dlist **sb, t_utils *u);
 t_utils	*instructions(t_dlist *stacka, t_dlist **stackb, t_utils *utils);
-
-/*main*/
+/*algo_utils*/
+int		get_values(int data, t_dlist **stackb, t_utils *utils);
+int		get_values2(int a, int data, t_dlist **stackb, t_utils *utils);
 int		checking_ifordered(t_dlist *stacka, int i);
 int		find_number(t_dlist *stack, int number);
+
+/*main*/
+t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb);
 
 #endif

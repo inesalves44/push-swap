@@ -1,53 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort500numbers.c                                   :+:      :+:    :+:   */
+/*   big_algorithm.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 16:20:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/18 21:43:20 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/19 12:41:50 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../incs/push_swap.h"
-
-int	get_values2(int a, int data, t_dlist **stackb, t_utils *utils)
-{
-	while (*stackb)
-	{
-		if ((*stackb)->data < data && (*stackb)->data > a && utils->part == 'f')
-			a = (*stackb)->data;
-		else if ((*stackb)->data > data && (*stackb)->data < a && utils->part == 's')
-			a = (*stackb)->data;
-		if (!(*stackb)->next)
-			break ;
-		(*stackb) = (*stackb)->next;
-	}
-	while ((*stackb)->prev)
-		(*stackb) = (*stackb)->prev;
-	return (a);
-}
-
-int	get_values(int data, t_dlist **stackb, t_utils *utils)
-{
-	int	a;
-
-	if (utils->part == 'f')
-		a = 0;
-	else
-		a = 700;
-	if ((data > get_max(*stackb) || data < get_min(*stackb)))
-	{
-		if (utils->part == 'f')
-			a = get_max(*stackb);
-		else if (utils->part == 's')
-			a = get_min(*stackb);
-		return(a);
-	}
-	a = get_values2(a, data, stackb, utils);
-	return (a);
-}
 
 t_dlist	*test_part2(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
@@ -71,33 +34,33 @@ t_dlist	*test_part2(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 	return (stacka);
 }
 
-t_dlist	*test(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
+t_dlist	*test(t_dlist *stacka, t_dlist **stackb, t_utils *u)
 {
-	utils = instructions(stacka, stackb, utils);
-	if (utils->final_rotate_a == 'y' && utils->final_rotate_b == 'y')
+	u = instructions(stacka, stackb, u);
+	if (u->final_rotate_a == 'y' && u->final_rotate_b == 'y')
 	{
-		while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
+		while (stacka->data != u->value_a && (*stackb)->data != u->value_b)
 		{
-			utils->rotate_total = 'y';
-			stacka = rotate(stacka, utils);
-			*stackb = rotate(*stackb, utils);
+			u->rotate_total = 'y';
+			stacka = rotate(stacka, u);
+			*stackb = rotate(*stackb, u);
 			ft_printf("rr\n");
 		}
 	}
-	else if (utils->final_rotate_a == 'n' && utils->final_rotate_b == 'n')
+	else if (u->final_rotate_a == 'n' && u->final_rotate_b == 'n')
 	{
-		while (stacka->data != utils->value_a && (*stackb)->data != utils->value_b)
+		while (stacka->data != u->value_a && (*stackb)->data != u->value_b)
 		{
-			utils->rotate_total = 'y';
-			stacka = r_rotate(stacka, utils);
-			*stackb = r_rotate(*stackb, utils);
+			u->rotate_total = 'y';
+			stacka = r_rotate(stacka, u);
+			*stackb = r_rotate(*stackb, u);
 			ft_printf("rrr\n");
 		}
 	}
-	stacka = test_part2(stacka, stackb, utils);
+	stacka = test_part2(stacka, stackb, u);
 	if (ft_tdsize(stacka) > 3)
-		stacka = test(stacka, stackb, utils);
-	return(stacka);
+		stacka = test(stacka, stackb, u);
+	return (stacka);
 }
 
 t_dlist	*last_three(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
@@ -134,14 +97,14 @@ t_dlist	*bigalgorithm(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 	utils->part = 's';
 	*stackb = test(*stackb, &stacka, utils);
 	if (checking_ifordered(*stackb, 2) != 1)
-		stacka = sort3numbers_rev(*stackb, utils);
+		*stackb = sort3numbers_rev(*stackb, utils);
 	stacka = last_three(stacka, stackb, utils);
-	utils->rotate_total ='a';
+	utils->rotate_total = 'a';
 	if (find_number(stacka, 1) <= ft_tdsize(stacka) / 2)
 		while (checking_ifordered(stacka, 1) != 1)
 			stacka = rotate(stacka, utils);
 	else
 		while (checking_ifordered(stacka, 1) != 1)
 			stacka = r_rotate(stacka, utils);
-	return(stacka);
+	return (stacka);
 }
