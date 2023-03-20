@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 17:40:21 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:58:00 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,53 @@ t_utils	*start_utils(t_utils *utils, t_dlist *stacka)
 	return (utils);
 }
 
+void	rotates(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
+{
+	if (!ft_strncmp(str, "ra\n", 3))
+		stacka = rotate(stacka, utils);
+	else if (!ft_strncmp(str, "rb\n", 3))
+		*stackb = rotate(*stackb, utils);
+	else if (!ft_strncmp(str, "rr\n", 3))
+	{
+		stacka = rotate(stacka, utils);
+		*stackb = rotate(*stackb, utils);
+	}
+}
+
+void	r_rotates(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
+{
+	if (!ft_strncmp(str, "rra\n", 4))
+		stacka = r_rotate(stacka, utils);
+	else if (!ft_strncmp(str, "rrb\n", 4))
+		*stackb = r_rotate(*stackb, utils);
+	else if (!ft_strncmp(str, "rrr\n", 4))
+	{
+		stacka = r_rotate(stacka, utils);
+		*stackb = r_rotate(*stackb, utils);
+	}
+}
+
+void	swap_check(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
+{
+	if (!ft_strncmp(str, "sa\n", 3))
+		stacka = swap(stacka, utils);
+	else if (!ft_strncmp(str, "sb\n", 3))
+		*stackb = swap(*stackb, utils);
+	else if (!ft_strncmp(str, "ss\n", 3))
+	{
+		stacka = swap(stacka, utils);
+		*stackb = swap(*stackb, utils);
+	}
+}
+
+void	push_check(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
+{
+	if (!ft_strncmp(str, "pa\n", 3))
+		stacka = push(stacka, stackb, utils);
+	else if (!ft_strncmp(str, "pb\n", 3))
+		*stackb = push(*stackb, &stacka, utils);
+}
+
 t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
 	char	*str;
@@ -65,37 +112,14 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		str = get_next_line(0);
 		if (!str)
 			break ;
-		if (!ft_strncmp(str, "ra\n", 3))
-			stacka = rotate(stacka, utils);
-		else if (!ft_strncmp(str, "rb\n", 3))
-			*stackb = rotate(*stackb, utils);
-		else if (!ft_strncmp(str, "rr\n", 3))
-		{
-			stacka = rotate(stacka, utils);
-			*stackb = rotate(*stackb, utils);
-		}
-		else if (!ft_strncmp(str, "rra\n", 4))
-			stacka = r_rotate(stacka, utils);
-		else if (!ft_strncmp(str, "rrb\n", 4))
-			*stackb = r_rotate(*stackb, utils);
-		else if (!ft_strncmp(str, "rrr\n", 4))
-		{
-			stacka = r_rotate(stacka, utils);
-			*stackb = r_rotate(*stackb, utils);
-		}
-		else if (!ft_strncmp(str, "sa\n", 3))
-			stacka = swap(stacka, utils);
-		else if (!ft_strncmp(str, "sb\n", 3))
-			*stackb = swap(*stackb, utils);
-		else if (!ft_strncmp(str, "ss\n", 3))
-		{
-			stacka = swap(stacka, utils);
-			*stackb = swap(*stackb, utils);
-		}
-		else if (!ft_strncmp(str, "pa\n", 3))
-			stacka = push(stacka, stackb, utils);
-		else if (!ft_strncmp(str, "pb\n", 3))
-			*stackb = push(*stackb, &stacka, utils);
+		if (!ft_strncmp(str, "ra\n", 3) || !ft_strncmp(str, "rb\n", 3) || !ft_strncmp(str, "rr\n", 3))
+			rotates(&stacka, stackb, str, utils);
+		else if (!ft_strncmp(str, "rra\n", 4) || !ft_strncmp(str, "rrb\n", 4) || !ft_strncmp(str, "rrr\n", 4))
+			r_rotates(&stacka, stackb, str, utils);
+		else if (!ft_strncmp(str, "sa\n", 3) || !ft_strncmp(str, "sb\n", 3) || !ft_strncmp(str, "ss\n", 3))
+			swap_check(&stacka, stackb, str, utils);
+		else if (!ft_strncmp(str, "pa\n", 3) || !ft_strncmp(str, "pb\n", 3))
+			push_check(&stacka, stackb, str, utils);
 		else
 		{
 			write(2, "Error\n", 6);
