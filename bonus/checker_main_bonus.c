@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 11:48:42 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:01:25 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,21 @@ int	main(int argc, char *argv[])
 	checking_digits_bonus(argv);
 	stacka = first_list_bonus(argv, argc);
 	checking_list_bonus(stacka, argv);
+	print_dblist(stacka);
 	stackb = NULL;
-	stacka = check_order(stacka, &stackb, &utils);
+	(void)utils;
+	(void)stackb;
+	/*stacka = check_order(stacka, &stackb, &utils);
 	if (checking_ifordered(stacka, 1) != 1)
+	{
 		ft_printf("KO\n");
+		if (stackb)
+			print_dblist2(stacka, stackb);
+		else
+			print_dblist(stacka);
+	}
 	else
-		ft_printf("OK\n");
+		ft_printf("OK\n");*/
 	free_list(&stacka);
 	return (0);
 }

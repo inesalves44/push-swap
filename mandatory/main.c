@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/15 13:56:25 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 13:37:01 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:32:10 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,11 @@ t_dlist	*annalysing_stack(t_dlist *stacka, t_dlist **stackb)
 	}
 	if (ft_tdsize(stacka) < 3)
 		stacka = swap(stacka, &utils);
-	else if (ft_tdsize(stacka) < 4)
+	else if (ft_tdsize(stacka) < 4 && ft_tdsize(stacka) >= 3)
 		stacka = sort3numbers(stacka, &utils);
-	else if (ft_tdsize(stacka) < 6)
+	else if (ft_tdsize(stacka) < 6 && ft_tdsize(stacka) >= 3)
 		stacka = sort5numbers(stacka, stackb, &utils);
-	else if (ft_tdsize(stacka) <= 500)
+	else if (ft_tdsize(stacka) <= 500 && ft_tdsize(stacka) >= 3)
 		stacka = bigalgorithm(stacka, stackb, &utils);
 	return (stacka);
 }

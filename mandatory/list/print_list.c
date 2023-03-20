@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:04:33 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 12:00:13 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 12:45:45 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,31 @@ void	print_dblist(t_dlist *lst)
 		ft_printf("NO LIST\n");
 }
 
-/* Second Print function!!*/
-/*void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
+void	finish_print(t_dlist *lst1, t_dlist *lst2)
+{
+	if (lst1)
+	{
+		while (lst1)
+		{
+			ft_printf("%d \t\n", lst1->data);
+			if (!lst1->next)
+				break ;
+			lst1 = lst1->next;
+		}
+	}
+	if (lst2)
+	{
+		while (lst2)
+		{
+			ft_printf("  \t %d\n", lst2->data);
+			if (!lst2->next)
+				break ;
+			lst2 = lst2->next;
+		}
+	}
+}
+
+void	print_dblist2(t_dlist *lst1, t_dlist *lst2)
 {
 	if (lst1 || lst2)
 	{
@@ -47,25 +70,6 @@ void	print_dblist(t_dlist *lst)
 			lst2 = lst2->next;
 			lst1 = lst1->next;
 		}
-		if (lst1)
-		{
-			while (lst1)
-			{
-				ft_printf("%d \t\n", lst1->data);
-				if (!lst1->next)
-					break ;
-				lst1 = lst1->next;
-			}
-		}
-		if (lst2)
-		{
-			while (lst2)
-			{
-				ft_printf("  \t %d\n", lst2->data);
-				if (!lst2->next)
-					break ;
-				lst2 = lst2->next;
-			}
-		}
+		finish_print(lst1, lst2);
 	}
-}*/
+}

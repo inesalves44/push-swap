@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/19 16:07:12 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/20 15:32:23 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ all: $(NAME)
 
 bonus: $(BONUS)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(OBJ_MAIN)
 		$(MAKE) -C libft
 		cp libft/$(LIBFT) $(LIBFT)
 		$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT)
@@ -38,7 +38,7 @@ $(BONUS): $(OBJS_BONUS) $(NAME)
 
 clean:
 	$(MAKE) clean -C libft
-	rm -rf $(OBJS) $(OBJS_BONUS)
+	rm -rf $(OBJS) $(OBJS_BONUS) $(OBJ_MAIN)
 
 fclean: clean
 	$(MAKE) fclean -C libft
@@ -46,4 +46,4 @@ fclean: clean
 
 re: fclean all
 
-rebonus: fclean all bonus
+rebonus: fclean bonus

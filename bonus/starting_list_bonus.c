@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 16:07:18 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 13:09:36 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,13 @@ t_dlist	*first_list_bonus(char **argv, int argc)
 	int				i;
 
 	i = 1;
+	if (!ft_strncmp("-lists", argv[argc - 1], 6))
+		argc--;
 	number = ft_atol(argv[1]);
 	if (number > 2147483647 || number < -2147483648)
 		error_func_bonus(NULL, argc, argv, 2);
 	lst = ft_createnode(number);
-	i++;
-	while (i < argc)
+	while (++i < argc)
 	{
 		number = ft_atol(argv[i]);
 		if (number > 2147483647 || number < -2147483648)
@@ -77,7 +78,6 @@ t_dlist	*first_list_bonus(char **argv, int argc)
 		lst->next = ft_createnode(number);
 		lst->next->prev = lst;
 		lst = lst->next;
-		i++;
 	}
 	while (lst->prev)
 		lst = lst->prev;
