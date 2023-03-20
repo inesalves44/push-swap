@@ -16,7 +16,7 @@ t_dlist	*swap(t_dlist *test, t_utils *utils)
 {
 	int		temp;
 
-	if (!test || ft_tdsize(test))
+	if (!test || ft_tdsize(test) < 2)
 		return (test);
 	temp = test->data;
 	test->data = test->next->data;
@@ -32,7 +32,7 @@ t_dlist	*swap_b(t_dlist *test, t_utils *utils)
 {
 	int		temp;
 
-	if (!test || ft_tdsize(test))
+	if (!test || ft_tdsize(test) < 2)
 		return (test);
 	temp = test->data;
 	test->data = test->next->data;

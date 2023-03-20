@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:28:32 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 12:08:16 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 10:16:06 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	total_moves(int data, t_dlist *stacka, t_dlist **stackb, t_utils *u)
 	int	b;
 	int	moves;
 
+	a = 0;
+	b = 0;
 	if (u->moves == '1')
 	{
 		a = find_number(stacka, data) - 1;
