@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 17:03:27 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 11:48:42 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int	find_number(t_dlist *stack, int number)
 	return (0);
 }
 
-t_utils	*start_utils(void)
+t_utils	*start_utils(t_utils *utils)
 {
 	utils->rotate_total = 'c';
-	utils->move_t = 0;
+	utils->movements_t = 0;
 	return (utils);
 }
 
@@ -58,7 +58,7 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
 	char	*str;
 	
-	utils = start_utils(void);
+	utils = start_utils(utils);
 	while (1)
 	{
 		str = get_next_line(0);
@@ -113,6 +113,10 @@ int	main(int argc, char *argv[])
 	checking_list_bonus(stacka, argv);
 	stackb = NULL;
 	stacka = check_order(stacka, &stackb, &utils);
+	if (checking_ifordered(stacka, 1) != 1)
+		ft_printf("KO\n");
+	else
+		ft_printf("OK\n");
 	free_list(&stacka);
 	return (0);
 }
