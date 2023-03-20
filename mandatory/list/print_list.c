@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 16:04:33 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 12:45:45 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:24:01 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,17 @@
 void	print_dblist(t_dlist *lst)
 {
 	if (lst)
-	{		
-		ft_printf("-------front list-------\n");
+	{
+		ft_printf("\nRESULT: \n");
 		while (lst)
 		{
-			ft_printf("%d\n", lst->data);
+			ft_printf("  %d\n", lst->data);
 			if (lst->next == NULL)
 				break ;
 			lst = lst->next;
 		}
-		ft_printf("------- back list-------\n");
-		while (lst)
-		{
-			ft_printf("%d\n", lst->data);
+		while (lst->prev)
 			lst = lst->prev;
-		}
 	}
 	else
 		ft_printf("NO LIST\n");

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 13:01:25 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 15:57:23 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,10 @@ int	find_number(t_dlist *stack, int number)
 	return (0);
 }
 
-t_utils	*start_utils(t_utils *utils)
+t_utils	*start_utils(t_utils *utils, t_dlist *stacka)
 {
 	utils->rotate_total = 'c';
+	utils-> size = ft_tdsize(stacka);
 	utils->movements_t = 0;
 	return (utils);
 }
@@ -58,7 +59,7 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
 	char	*str;
 	
-	utils = start_utils(utils);
+	utils = start_utils(utils, stacka);
 	while (1)
 	{
 		str = get_next_line(0);
@@ -111,21 +112,20 @@ int	main(int argc, char *argv[])
 	checking_digits_bonus(argv);
 	stacka = first_list_bonus(argv, argc);
 	checking_list_bonus(stacka, argv);
-	print_dblist(stacka);
 	stackb = NULL;
-	(void)utils;
-	(void)stackb;
-	/*stacka = check_order(stacka, &stackb, &utils);
-	if (checking_ifordered(stacka, 1) != 1)
+	stacka = check_order(stacka, &stackb, &utils);
+	if (checking_ifordered(stacka, 1) != 1 || ft_tdsize(stackb) > 0 || ft_tdsize(stacka) != utils.size)
 	{
 		ft_printf("KO\n");
-		if (stackb)
+		if (stackb && !ft_strncmp("-lists", argv[argc - 1], 6))
 			print_dblist2(stacka, stackb);
-		else
+		else if (!stackb && !ft_strncmp("-lists", argv[argc - 1], 6))
 			print_dblist(stacka);
+		else
+			ft_printf("To print the resulting lists run the checker with '-lists'.\n");
 	}
 	else
-		ft_printf("OK\n");*/
+		ft_printf("OK\n");
 	free_list(&stacka);
 	return (0);
 }
