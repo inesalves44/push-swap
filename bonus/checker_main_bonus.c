@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 17:58:00 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 18:02:59 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,23 @@ void	push_check(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
 		*stackb = push(*stackb, &stacka, utils);
 }
 
+void	str_check(t_dlist *stacka, t_dlist **stackb, char *str, t_utils *utils)
+{
+	write(2, "Error\n", 6);
+	while (1)
+	{
+		str = ft_strjoin(str, get_next_line(0));
+		if (!str)
+			break ;
+		t_printf("This is not a valid command: %s\n", str);
+	}
+	exit(EXIT_FAILURE);
+}
+
 t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
 	char	*str;
 	
-	utils = start_utils(utils, stacka);
 	while (1)
 	{
 		str = get_next_line(0);
@@ -121,17 +133,7 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		else if (!ft_strncmp(str, "pa\n", 3) || !ft_strncmp(str, "pb\n", 3))
 			push_check(&stacka, stackb, str, utils);
 		else
-		{
-			write(2, "Error\n", 6);
-			while (1)
-			{
-				str = ft_strjoin(str, get_next_line(0));
-				if (!str)
-					break ;
-				ft_printf("This is not a valid command: %s\n", str);
-			}
-			exit(EXIT_FAILURE);
-		}
+			str_check(stacka, stackb, utils, str);
 		utils->movements_t++;
 		free(str);
 	}
@@ -149,6 +151,7 @@ int	main(int argc, char *argv[])
 	checking_digits_bonus(argv);
 	stacka = first_list_bonus(argv, argc);
 	checking_list_bonus(stacka, argv);
+	start_utils(&utils, stacka);
 	stackb = NULL;
 	stacka = check_order(stacka, &stackb, &utils);
 	if (checking_ifordered(stacka, 1) != 1 || ft_tdsize(stackb) > 0 || ft_tdsize(stacka) != utils.size)
