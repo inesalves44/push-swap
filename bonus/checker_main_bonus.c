@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 17:39:07 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 17:40:21 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,8 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 				str = ft_strjoin(str, get_next_line(0));
 				if (!str)
 					break ;
-			ft_printf("This is not a valid command: %s\n", str);
-			};
+				ft_printf("This is not a valid command: %s\n", str);
+			}
 			exit(EXIT_FAILURE);
 		}
 		utils->movements_t++;
