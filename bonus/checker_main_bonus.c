@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 15:57:23 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/20 16:45:21 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 			stacka = push(stacka, stackb, utils);
 		else if (!ft_strncmp(str, "pb\n", 3))
 			*stackb = push(*stackb, &stacka, utils);
+		utils->movements_t++;
 		free(str);
 	}
 	return (stacka);
@@ -125,7 +126,10 @@ int	main(int argc, char *argv[])
 			ft_printf("To print the resulting lists run the checker with '-lists'.\n");
 	}
 	else
+	{
 		ft_printf("OK\n");
+		ft_printf("The sorting took: %d movements", utils.movements_t);
+	}
 	free_list(&stacka);
 	return (0);
 }
