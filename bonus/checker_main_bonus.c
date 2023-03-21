@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 11:50:34 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 13:05:40 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	find_number(t_dlist *stack, int number)
 void	str_check(t_dlist **stacka, t_dlist **stackb, char *str)
 {	
 	write(2, "Error\n", 6);
-	ft_printf("\nThis is not a valid command:");
+	ft_printf("\nThis is not a valid command: ");
 	while (1)
 	{
 		ft_printf("%s", str);
