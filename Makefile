@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/21 18:19:00 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 18:45:49 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,11 @@ LIBFT = libft.a
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g
 .SILENT : LIBFT
-GREEN		:=	\033[1;32m
+GREEN		:=	\033[0;32m
 RED			:=	\033[1;31m
 WHITE		:=	\033[1;37m
 BOLD		:=	\033[1;1ms
+CYAN		:=	\033[0;36m
 
 all: $(NAME)
 
@@ -44,15 +45,15 @@ $(BONUS): $(OBJS_BONUS) $(NAME)
 
 clean:
 	@$(MAKE) clean --no-print-directory -C libft
-	@echo "$(RED) [cleaned] libft objects."
+	@echo "$(CYAN) [cleaned] libft objects."
 	@rm -rf $(OBJS) $(OBJS_BONUS) $(OBJ_MAIN)
-	@echo "$(RED) [cleaned] push_swap objects."
+	@echo "$(CYAN) [cleaned] push_swap objects."
 
 fclean: clean
 	@$(MAKE) fclean --no-print-directory -C libft
-	@echo "$(RED) [cleaned] libft library."
+	@echo "$(CYAN) [cleaned] libft library."
 	@rm -rf $(NAME) $(BONUS) $(LIBFT)
-	@echo "$(RED) [cleaned] executables.$(WHITE)"
+	@echo "$(CYAN) [cleaned] executables.$(WHITE)"
 
 re: fclean all
 
