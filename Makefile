@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/21 18:12:55 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 18:19:00 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,13 +35,10 @@ $(NAME): $(OBJS) $(OBJ_MAIN)
 		@$(MAKE) --no-print-directory -C libft
 		@cp libft/$(LIBFT) $(LIBFT)
 		@echo "$(GREEN) [Success] libft compilation."
-		@($(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT))
+		@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT)
 		@echo "$(GREEN) [Success] push_swap compilation."
 
 $(BONUS): $(OBJS_BONUS) $(NAME)
-		@$(MAKE) --no-print-directory -C libft
-		@cp libft/$(LIBFT) $(LIBFT)
-		@echo "$(GREEN) [Success] libft compilation."
 		@$(CC) $(CFLAGS) -o $(BONUS) $(OBJS) $(OBJS_BONUS) $(LIBFT)
 		@echo "$(GREEN) [Success] push_swap bonus compilation."
 
@@ -55,7 +52,7 @@ fclean: clean
 	@$(MAKE) fclean --no-print-directory -C libft
 	@echo "$(RED) [cleaned] libft library."
 	@rm -rf $(NAME) $(BONUS) $(LIBFT)
-	@echo "$(RED) [cleaned] executables."
+	@echo "$(RED) [cleaned] executables.$(WHITE)"
 
 re: fclean all
 
