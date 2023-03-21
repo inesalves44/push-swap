@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+         #
+#    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 19:02:37 by idias-al          #+#    #+#              #
-#    Updated: 2023/01/20 19:33:06 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 17:57:49 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,21 @@ NAME			= libft.a
 
 all:			$(NAME)
 
+%.o:%.c
+			@$(CC) $(CFLAGS) -o $@ -c $<
+
 $(NAME):		$(OBJS) $(OBJS_GNL)
-				$(MAKE) -C libft
-				cp libft/$(NAME) $(NAME)
-				ar rcs $(NAME) $(OBJS) $(OBJS_GNL) $(OBJS_LIBFT)
+				@$(MAKE) --no-print-directory -C libft
+				@cp libft/$(NAME) $(NAME)
+				@ar rcs $(NAME) $(OBJS) $(OBJS_GNL) $(OBJS_LIBFT)
 
 clean:
-				$(MAKE) clean -C libft
-				$(RM) $(OBJS) $(OBJS_LIBFT) $(OBJS_GNL)
+				@$(MAKE) --no-print-directory clean -C libft
+				@$(RM) $(OBJS) $(OBJS_LIBFT) $(OBJS_GNL)
 
 fclean:			clean
-				$(MAKE) fclean -C libft
-				$(RM) $(NAME)
+				@$(MAKE) --no-print-directory fclean -C libft
+				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
 

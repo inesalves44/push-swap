@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/21 16:37:54 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 18:12:55 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ BONUS = checker
 LIBFT = libft.a
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g
+.SILENT : LIBFT
 GREEN		:=	\033[1;32m
 RED			:=	\033[1;31m
 WHITE		:=	\033[1;37m
@@ -32,23 +33,29 @@ bonus: $(BONUS)
 
 $(NAME): $(OBJS) $(OBJ_MAIN)
 		@$(MAKE) --no-print-directory -C libft
-		cp libft/$(LIBFT) $(LIBFT)
+		@cp libft/$(LIBFT) $(LIBFT)
 		@echo "$(GREEN) [Success] libft compilation."
-		@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT)
+		@($(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT))
 		@echo "$(GREEN) [Success] push_swap compilation."
 
 $(BONUS): $(OBJS_BONUS) $(NAME)
-		$(MAKE) -C libft
-		cp libft/$(LIBFT) $(LIBFT)
-		$(CC) $(CFLAGS) -o $(BONUS) $(OBJS) $(OBJS_BONUS) $(LIBFT)
+		@$(MAKE) --no-print-directory -C libft
+		@cp libft/$(LIBFT) $(LIBFT)
+		@echo "$(GREEN) [Success] libft compilation."
+		@$(CC) $(CFLAGS) -o $(BONUS) $(OBJS) $(OBJS_BONUS) $(LIBFT)
+		@echo "$(GREEN) [Success] push_swap bonus compilation."
 
 clean:
-	$(MAKE) clean -C libft
-	rm -rf $(OBJS) $(OBJS_BONUS) $(OBJ_MAIN)
+	@$(MAKE) clean --no-print-directory -C libft
+	@echo "$(RED) [cleaned] libft objects."
+	@rm -rf $(OBJS) $(OBJS_BONUS) $(OBJ_MAIN)
+	@echo "$(RED) [cleaned] push_swap objects."
 
 fclean: clean
-	$(MAKE) fclean -C libft
-	rm -rf $(NAME) $(BONUS) $(LIBFT)
+	@$(MAKE) fclean --no-print-directory -C libft
+	@echo "$(RED) [cleaned] libft library."
+	@rm -rf $(NAME) $(BONUS) $(LIBFT)
+	@echo "$(RED) [cleaned] executables."
 
 re: fclean all
 
