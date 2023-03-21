@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/20 15:32:23 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 10:20:19 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ OBJS = mandatory/list/push.o mandatory/list/rotate.o mandatory/list/swap.o manda
 	   mandatory/list/ft_tdsizelist.o mandatory/list/lst_createnode.o mandatory/list/free_list.o mandatory/list/print_list.o \
 	   mandatory/init_listtest.o mandatory/utils.o mandatory/create_stacka.o mandatory/sort3numbers.o \
 	   mandatory/big_algorithm.o mandatory/algo_utils.o mandatory/algo_utils2.o
-OBJS_BONUS = bonus/checker_main_bonus.o bonus/starting_list_bonus.o
+OBJS_BONUS = bonus/checker_main_bonus.o bonus/starting_list_bonus.o bonus/movements_bonus.o
 NAME = push_swap
 BONUS = checker
 LIBFT = libft.a

@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 13:09:36 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 10:52:31 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	error_func_bonus(t_dlist **list, int a, char *argv[], int i)
 		j++;
 	write(2, "Error\n", 6);
 	if (!ft_strncmp(argv[j - 1], "-details", 8) && i == 1)
-		ft_printf("The argument: %s(%d) is not an int.\n", argv[a], a);
+		ft_printf("The argument: %s(%d) is invalid.\n", argv[a], a);
 	else if (!ft_strncmp(argv[j - 1], "-details", 8) && i == 2)
-		ft_printf("The argument: %s(%d) is larger than an int.\n", argv[a], a);
+		ft_printf("The argument: %s(%d) is too large.\n", argv[a], a);
 	else if (!ft_strncmp(argv[j - 1], "-details", 8) && i == 3)
-		ft_printf("The argument: %s(%d) appears for a second time.\n", argv[a], a);
+		ft_printf("The argument: %s(%d) appears 2 times.\n", argv[a], a);
 	else
-		ft_printf("Run the checker with '-details' for specific errors.\n");
+		ft_printf("Run with '-details' for specific errors.\n");
 	if (list)
 		free_list(list);
 	exit(EXIT_FAILURE);
@@ -84,7 +84,7 @@ t_dlist	*first_list_bonus(char **argv, int argc)
 	return (lst);
 }
 
-int	checking_list_bonus(t_dlist *lst,  char *argv[])
+int	checking_list_bonus(t_dlist *lst, char *argv[])
 {
 	t_dlist	*new;
 	int		i;

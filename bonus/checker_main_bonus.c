@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/20 18:09:03 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:10:22 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,79 +47,21 @@ int	find_number(t_dlist *stack, int number)
 	return (0);
 }
 
-t_utils	*start_utils(t_utils *utils, t_dlist *stacka)
-{
-	utils->rotate_total = 'c';
-	utils-> size = ft_tdsize(stacka);
-	utils->movements_t = 0;
-	return (utils);
-}
-
-void	rotates(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
-{
-	if (!ft_strncmp(str, "ra\n", 3))
-		*stacka = rotate(*stacka, utils);
-	else if (!ft_strncmp(str, "rb\n", 3))
-		*stackb = rotate(*stackb, utils);
-	else if (!ft_strncmp(str, "rr\n", 3))
-	{
-		*stacka = rotate(*stacka, utils);
-		*stackb = rotate(*stackb, utils);
-	}
-}
-
-void	r_rotates(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
-{
-	if (!ft_strncmp(str, "rra\n", 4))
-		*stacka = r_rotate(*stacka, utils);
-	else if (!ft_strncmp(str, "rrb\n", 4))
-		*stackb = r_rotate(*stackb, utils);
-	else if (!ft_strncmp(str, "rrr\n", 4))
-	{
-		*stacka = r_rotate(*stacka, utils);
-		*stackb = r_rotate(*stackb, utils);
-	}
-}
-
-void	swap_check(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
-{
-	if (!ft_strncmp(str, "sa\n", 3))
-		*stacka = swap(*stacka, utils);
-	else if (!ft_strncmp(str, "sb\n", 3))
-		*stackb = swap(*stackb, utils);
-	else if (!ft_strncmp(str, "ss\n", 3))
-	{
-		*stacka = swap(*stacka, utils);
-		*stackb = swap(*stackb, utils);
-	}
-}
-
-void	push_check(t_dlist **stacka, t_dlist **stackb, char *str, t_utils *utils)
-{
-	if (!ft_strncmp(str, "pa\n", 3))
-		*stacka = push(*stacka, stackb, utils);
-	else if (!ft_strncmp(str, "pb\n", 3))
-		*stackb = push(*stackb, stacka, utils);
-}
-
 void	str_check(t_dlist **stacka, t_dlist **stackb, char *str)
-{
-	char	*str2;
-	char	*str3;
-	
+{	
 	write(2, "Error\n", 6);
+	ft_printf("\nThis is not a valid command:");
 	while (1)
 	{
-		str2 = ft_strjoin(str, get_next_line(0));
+		ft_printf("%s", str);
+		free(str);
+		str = get_next_line(0);
 		if (!str)
 			break ;
-		str = str2;
-		free(str2);
 	}
-	ft_printf("This is not a valid command: %s\n", str);
-	if (stacka)
+	if (*stacka != NULL)
 		free_list(stacka);
-	if (stackb)
+	if (*stackb != NULL)
 		free_list(stackb);
 	exit(EXIT_FAILURE);
 }
@@ -127,17 +69,20 @@ void	str_check(t_dlist **stacka, t_dlist **stackb, char *str)
 t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 {
 	char	*str;
-	
+
 	while (1)
 	{
 		str = get_next_line(0);
 		if (!str)
 			break ;
-		if (!ft_strncmp(str, "ra\n", 3) || !ft_strncmp(str, "rb\n", 3) || !ft_strncmp(str, "rr\n", 3))
+		if (!ft_strncmp(str, "ra\n", 3) \
+		|| !ft_strncmp(str, "rb\n", 3) || !ft_strncmp(str, "rr\n", 3))
 			rotates(&stacka, stackb, str, utils);
-		else if (!ft_strncmp(str, "rra\n", 4) || !ft_strncmp(str, "rrb\n", 4) || !ft_strncmp(str, "rrr\n", 4))
+		else if (!ft_strncmp(str, "rra\n", 4) \
+		|| !ft_strncmp(str, "rrb\n", 4) || !ft_strncmp(str, "rrr\n", 4))
 			r_rotates(&stacka, stackb, str, utils);
-		else if (!ft_strncmp(str, "sa\n", 3) || !ft_strncmp(str, "sb\n", 3) || !ft_strncmp(str, "ss\n", 3))
+		else if (!ft_strncmp(str, "sa\n", 3) \
+		|| !ft_strncmp(str, "sb\n", 3) || !ft_strncmp(str, "ss\n", 3))
 			swap_check(&stacka, stackb, str, utils);
 		else if (!ft_strncmp(str, "pa\n", 3) || !ft_strncmp(str, "pb\n", 3))
 			push_check(&stacka, stackb, str, utils);
@@ -147,6 +92,30 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		free(str);
 	}
 	return (stacka);
+}
+
+void	checker_final(t_dlist **s_a, t_dlist **s_b, t_utils *u, char *args)
+{
+	if (checking_ifordered(*s_a, 1) != 1 || ft_tdsize(*s_b) > 0 \
+	|| ft_tdsize(*s_a) != u->size)
+	{
+		ft_printf("KO\n");
+		if (*s_b && !ft_strncmp("-lists", args, 6))
+			print_dblist2(*s_a, *s_b);
+		else if (*s_b != NULL && !ft_strncmp("-lists", args, 6))
+			print_dblist(*s_a);
+		else
+			ft_printf("To print the resulting lists run '-lists'.\n");
+	}
+	else
+	{
+		ft_printf("OK\n");
+		ft_printf("The sorting took: %d movements", u->movements_t);
+	}
+	if (*s_a != NULL)
+		free_list(s_a);
+	if (*s_b != NULL)
+		free_list(s_b);
 }
 
 int	main(int argc, char *argv[])
@@ -163,21 +132,6 @@ int	main(int argc, char *argv[])
 	start_utils(&utils, stacka);
 	stackb = NULL;
 	stacka = check_order(stacka, &stackb, &utils);
-	if (checking_ifordered(stacka, 1) != 1 || ft_tdsize(stackb) > 0 || ft_tdsize(stacka) != utils.size)
-	{
-		ft_printf("KO\n");
-		if (stackb && !ft_strncmp("-lists", argv[argc - 1], 6))
-			print_dblist2(stacka, stackb);
-		else if (!stackb && !ft_strncmp("-lists", argv[argc - 1], 6))
-			print_dblist(stacka);
-		else
-			ft_printf("To print the resulting lists run the checker with '-lists'.\n");
-	}
-	else
-	{
-		ft_printf("OK\n");
-		ft_printf("The sorting took: %d movements", utils.movements_t);
-	}
-	free_list(&stacka);
+	checker_final(&stacka, &stackb, &utils, argv[argc - 1]);
 	return (0);
 }
