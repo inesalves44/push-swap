@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 14:41:08 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:48:02 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ t_dlist	*first_list_bonus(char **argv, int argc)
 	int			i;
 
 	i = 1;
-	if (!ft_strncmp("-lists", argv[argc - 1], 6) || !ft_strncmp("-details", argv[argc - 1], 8))
+	if (!ft_strncmp("-lists", argv[argc - 1], 6) \
+	|| !ft_strncmp("-details", argv[argc - 1], 8))
 		argc--;
 	number = ft_atol(argv[1]);
 	if (number > 2147483647 || number < -2147483648)

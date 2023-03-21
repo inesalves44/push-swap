@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: idias-al <idias-al@student.42porto.com>    +#+  +:+       +#+         #
+#    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/12 19:02:37 by idias-al          #+#    #+#              #
-#    Updated: 2022/11/14 12:18:31 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 16:39:27 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,8 +28,11 @@ INCLUDES		= ../incs/
 CC				= cc
 RM				= rm -f
 CFLAGS			= -Wall -Wextra -Werror -I $(INCLUDES)
-
 NAME			= libft.a
+GREEN		:=	\033[1;32m
+RED			:=	\033[1;31m
+WHITE		:=	\033[1;37m
+BOLD		:=	\033[1;1ms
 
 all:			$(NAME)
 

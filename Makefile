@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/21 12:38:00 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/21 16:37:54 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,15 +21,21 @@ BONUS = checker
 LIBFT = libft.a
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g
+GREEN		:=	\033[1;32m
+RED			:=	\033[1;31m
+WHITE		:=	\033[1;37m
+BOLD		:=	\033[1;1ms
 
 all: $(NAME)
 
 bonus: $(BONUS)
 
 $(NAME): $(OBJS) $(OBJ_MAIN)
-		$(MAKE) -C libft
+		@$(MAKE) --no-print-directory -C libft
 		cp libft/$(LIBFT) $(LIBFT)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT)
+		@echo "$(GREEN) [Success] libft compilation."
+		@$(CC) $(CFLAGS) -o $(NAME) $(OBJ_MAIN) $(OBJS) $(LIBFT)
+		@echo "$(GREEN) [Success] push_swap compilation."
 
 $(BONUS): $(OBJS_BONUS) $(NAME)
 		$(MAKE) -C libft
