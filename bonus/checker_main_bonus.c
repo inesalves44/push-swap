@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 11:10:22 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 11:50:34 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,30 +92,6 @@ t_dlist	*check_order(t_dlist *stacka, t_dlist **stackb, t_utils *utils)
 		free(str);
 	}
 	return (stacka);
-}
-
-void	checker_final(t_dlist **s_a, t_dlist **s_b, t_utils *u, char *args)
-{
-	if (checking_ifordered(*s_a, 1) != 1 || ft_tdsize(*s_b) > 0 \
-	|| ft_tdsize(*s_a) != u->size)
-	{
-		ft_printf("KO\n");
-		if (*s_b && !ft_strncmp("-lists", args, 6))
-			print_dblist2(*s_a, *s_b);
-		else if (*s_b != NULL && !ft_strncmp("-lists", args, 6))
-			print_dblist(*s_a);
-		else
-			ft_printf("To print the resulting lists run '-lists'.\n");
-	}
-	else
-	{
-		ft_printf("OK\n");
-		ft_printf("The sorting took: %d movements", u->movements_t);
-	}
-	if (*s_a != NULL)
-		free_list(s_a);
-	if (*s_b != NULL)
-		free_list(s_b);
 }
 
 int	main(int argc, char *argv[])
