@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 12:01:23 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 12:51:54 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,17 +90,17 @@ int	checking_list_bonus(t_dlist *lst, char *argv[])
 	int		i;
 
 	new = lst;
+	i = 1;
 	while (lst)
 	{
 		new = lst->next;
-		i = 1;
 		while (new)
 		{
-			i++;
 			if (new->data == lst->data)
 				error_func_bonus(&lst, i, argv, 3);
 			new = new->next;
 		}
+		i++;
 		if (!lst->next)
 			break ;
 		lst = lst->next;
