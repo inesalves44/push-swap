@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 13:12:23 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/21 14:41:08 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int	checking_digits_bonus(char **argv)
 
 t_dlist	*first_list_bonus(char **argv, int argc)
 {
-	t_dlist			*lst;
-	long int		number;
-	int				i;
+	t_dlist		*lst;
+	long int	number;
+	int			i;
 
 	i = 1;
 	if (!ft_strncmp("-lists", argv[argc - 1], 6) || !ft_strncmp("-details", argv[argc - 1], 8))
@@ -118,7 +118,7 @@ void	checker_final(t_dlist **s_a, t_dlist **s_b, t_utils *u, char *args)
 		ft_printf("KO\n");
 		if (*s_b && !ft_strncmp("-lists", args, 6))
 			print_dblist2(*s_a, *s_b);
-		else if (*s_b != NULL && !ft_strncmp("-lists", args, 6))
+		else if (*s_b == NULL && !ft_strncmp("-lists", args, 6))
 			print_dblist(*s_a);
 		else
 			ft_printf("To print the resulting lists run '-lists'.\n");
