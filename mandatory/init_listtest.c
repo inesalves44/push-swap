@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:27:15 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/17 17:21:13 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/22 11:05:49 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ int	checking_digits(char **argv)
 			else
 				j++;
 		}
+		if (*argv[i] == '\0')
+			error_func(NULL);
 		i++;
 	}
 	return (0);

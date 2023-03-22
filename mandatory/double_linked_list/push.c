@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 22:28:12 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/19 17:02:00 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:31:03 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_dlist	*push(t_dlist *lsti, t_dlist **lstd, t_utils *utils)
 {
-	if (!lstd)
+	if (*lstd == NULL)
 		return (lsti);
 	lsti = add_to_front((*lstd)->data, lsti);
 	*lstd = delete_from_front(*lstd);
@@ -47,7 +47,7 @@ t_dlist	*pushing_toa(t_dlist *lsta, t_dlist *lstb)
 	t_dlist	*stackb;
 
 	i = 0;
-	if (!lstb)
+	if (lstb == NULL)
 		return (lsta);
 	stackb = lstb;
 	temp = NULL;

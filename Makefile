@@ -6,7 +6,7 @@
 #    By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/18 00:43:06 by idias-al          #+#    #+#              #
-#    Updated: 2023/03/21 18:45:49 by idias-al         ###   ########.fr        #
+#    Updated: 2023/03/22 09:52:02 by idias-al         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,6 @@ BONUS = checker
 LIBFT = libft.a
 CC		= cc
 CFLAGS	= -Wextra -Wall -Werror -g
-.SILENT : LIBFT
 GREEN		:=	\033[0;32m
 RED			:=	\033[1;31m
 WHITE		:=	\033[1;37m

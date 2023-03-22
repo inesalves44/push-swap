@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/16 15:29:05 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 13:06:46 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:18:19 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ t_dlist	*swap(t_dlist *test, t_utils *utils)
 {
 	int		temp;
 
-	if (!test || ft_tdsize(test) < 2)
+	if (!test)
+		return (NULL);
+	if (ft_tdsize(test) < 2)
 		return (test);
 	temp = test->data;
 	test->data = test->next->data;
@@ -32,7 +34,9 @@ t_dlist	*swap_b(t_dlist *test, t_utils *utils)
 {
 	int		temp;
 
-	if (!test || ft_tdsize(test) < 2)
+	if (!test)
+		return (NULL);
+	if (ft_tdsize(test) < 2)
 		return (test);
 	temp = test->data;
 	test->data = test->next->data;

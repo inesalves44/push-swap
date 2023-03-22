@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 10:18:44 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/21 10:56:50 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/22 10:10:37 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	push_check(t_dlist **s_a, t_dlist **s_b, char *str, t_utils *utils)
 t_utils	*start_utils(t_utils *utils, t_dlist *stacka)
 {
 	utils->rotate_total = 'c';
+	utils->push = 'c';
 	utils->size = ft_tdsize(stacka);
 	utils->movements_t = 0;
 	return (utils);
