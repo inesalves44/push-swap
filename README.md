@@ -64,10 +64,10 @@ So for this algorithm you have to pass everything except 3 numbers to stack B.
 Very simply it goes like this (for a better explanation please check out the link above):
 
 1. We start by pushing the first two numbers to stack B. 
-2. Then we go through A and check which number needs less rotates or r_rotates to pass to B and make B sorted. Here we need to take advantages of the rr and rrr checking how many of each we need and then choosing the less movements;
+2. Then we go through A and check which number needs less rotates or r_rotates to pass to B and make B sorted. Here we need to take advantages of the rr and rrr checking how many of each we need and then choosing the less number of movements;
 3. When there are only 3 numbers in A we order them using the previous algorithm;
-4. Finally we pass ordered the values of B to A. until there are only three numbers in B, where we would to the same as above;
-5. Then rotate until the smallest number is on top of A!
+4. Finally we pass ordered the values of B to A. until there are only three numbers in B, where we would to the same as above and pass the final number to A;
+5. Then rotate (or reverse rotate) until the smallest number is on top of A!
 
 ## Bonus - Checker
 
@@ -75,7 +75,7 @@ For the push-swap bonus we needed to create our own checker program.
 
 The objective of a checker is to create a program that will check if the list of instructions given orders the provided list.
 
-The checker will also have to check if the list given is valid. Parametrs not valid are, for eample, non numeric characters, integers bigger than the max_int or repeated numbers. for this checker if you want to know the problem you can run with '-details' it like this:
+The checker will also have to check if the list given is valid. Parametrs not valid are, for eample, non numeric characters, integers bigger than the max_int or repeated numbers. for this checker if you want to know the problem you can run with '-details' like this:
 ```
 ./checker 2 3 one -details
  ```
