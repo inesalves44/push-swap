@@ -2,7 +2,7 @@
 
 ## Overview
 
-Push_swap is a 42 common core project that has as an objective to sort data using a limited number of instructuins.
+Push_swap is a 42 common core project that has as an objective to sort data using a limited number of instructions.
 
 The point of this project is to learn how to use sorting algorithms and to use them.
 
