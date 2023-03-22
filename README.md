@@ -53,7 +53,7 @@ Quite simple, you only need to check where in the list is the highest number and
 
 #### For 5 numbers
 
-For this one the main operation is sending the two smaller numbers to stackb, and then using the sort3 algorithm to sort A. Then swap b if necessary and use pa to transfer to stacka.
+For this one the main operation is sending the two smaller numbers to stack B, and then using the sort3 algorithm to sort A. Then swap b if necessary and use pa to transfer to stack A.
 
 ### Larger stack
 
