@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/17 20:27:15 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/22 11:05:49 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:08:55 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	checking_digits(char **argv)
 		j = 0;
 		while (argv[i][j])
 		{
-			if (argv[i][0] == '-' || argv[i][0] == '+')
+			if ((argv[i][0] == '-' || argv[i][0] == '+') && j == 0)
 				j++;
 			else if (ft_isdigit(argv[i][j]) != 1)
 				error_func(NULL);

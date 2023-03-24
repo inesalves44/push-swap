@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 13:10:09 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/22 09:57:28 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:39:04 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char *argv[])
 
 	if (argc < 2)
 		return (0);
-	checking_digits_bonus(argv);
+	checking_digits_bonus(argv, argc);
 	stacka = first_list_bonus(argv, argc);
 	checking_list_bonus(stacka, argv);
 	start_utils(&utils, stacka);

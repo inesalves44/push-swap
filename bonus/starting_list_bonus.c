@@ -6,7 +6,7 @@
 /*   By: idias-al <idias-al@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/19 16:06:04 by idias-al          #+#    #+#             */
-/*   Updated: 2023/03/22 11:07:02 by idias-al         ###   ########.fr       */
+/*   Updated: 2023/03/24 10:39:34 by idias-al         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	error_func_bonus(t_dlist **list, int a, char *argv[], int i)
 	exit(EXIT_FAILURE);
 }
 
-int	checking_digits_bonus(char **argv)
+int	checking_digits_bonus(char **argv, int argc)
 {
 	int	i;
 	int	j;
@@ -43,9 +43,10 @@ int	checking_digits_bonus(char **argv)
 	while (argv[i])
 	{
 		j = 0;
-		while (argv[i][j])
+		while (argv[i][j] && ft_strncmp("-lists", argv[argc - 1], 6) \
+	&& ft_strncmp("-details", argv[argc - 1], 8))
 		{
-			if (argv[i][0] == '-' || argv[i][0] == '+')
+			if ((argv[i][0] == '-' || argv[i][0] == '+') && j == 0)
 				j++;
 			else if (ft_isdigit(argv[i][j]) != 1)
 				error_func_bonus(NULL, i, argv, 1);
