@@ -40,6 +40,9 @@ int	checking_digits_bonus(char **argv, int argc)
 
 	i = 1;
 	j = 0;
+	if (!ft_strncmp("-lists", argv[argc - 1], 6) \
+	|| !ft_strncmp("-details", argv[argc - 1], 8))
+		argc--;
 	while (argv[i])
 	{
 		j = 0;
